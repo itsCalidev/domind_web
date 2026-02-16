@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import DiagnosticContainer from '../components/diagnostic/DiagnosticContainer';
+---
+
+<Layout title="Diagnóstico Organizacional - DOMIND">
+  <Navbar />
+  <main class="pt-20 min-h-screen bg-gray-50">
+    <DiagnosticContainer client:load />
+  </main>
+</Layout>
