@@ -2,334 +2,819 @@
 
 ---
 
-<section class="py-16 md:py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section
+  class="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+>
+  <!-- Decorative background elements -->
+  <div
+    class="absolute top-20 left-0 w-72 h-72 bg-blue-100 rounded-full filter blur-3xl opacity-20"
+  >
+  </div>
+  <div
+    class="absolute bottom-20 right-0 w-96 h-96 bg-blue-50 rounded-full filter blur-3xl opacity-30"
+  >
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <!-- Section Title -->
-
     <h2
-      class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12 md:mb-16"
+      class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4"
     >
-      Diagnóstico Estratégico Organizacional
+      <span class="text-blue-900">Diagnóstico</span> Estratégico Organizacional
     </h2>
-    <div class="border-t border-gray-100 mb-8"></div>
-    <p class="text-lg text-gray-600 text-center max-w-3xl mx-auto">
+
+    <!-- Divider with animation -->
+    <div class="flex justify-center mb-6">
+      <div
+        class="w-24 h-1 bg-gradient-to-r from-transparent via-blue-900 to-transparent animate-pulse-slow"
+      >
+      </div>
+    </div>
+
+    <!-- Description -->
+    <p
+      class="text-base md:text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12 leading-relaxed"
+    >
       Descubra el estado actual de su organización con nuestro diagnóstico
-      estratégico. Identifique áreas de mejora
+      estratégico Identifique áreas de mejora y fortalezca su cultura
+      organizacional para un futuro más seguro y productivo
     </p>
-    <p class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
-      y fortalezca su cultura organizacional para un futuro más seguro y
-      productivo.
-    <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-      <!-- Left Side: Dashboard Preview -->
-      <div class="flex justify-center">
-        <div class="relative w-full max-w-md">
-          <!-- Laptop Frame -->
-          <div class="bg-gray-800 rounded-t-xl p-2 shadow-2xl">
-            <div class="bg-white rounded-lg overflow-hidden">
-              <!-- Dashboard Content -->
-              <div class="p-6 md:p-8">
-                <!-- Header -->
-                <div class="text-xs text-gray-500 mb-4">
-                  <div class="flex items-center gap-2 mb-2">
-                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>Riesgo Organizacional: Alto</span>
-                  </div>
-                </div>
 
-                <!-- Gauge Chart -->
-                <div class="mb-6">
-                  <div class="relative w-32 h-32 mx-auto">
-                    <svg
-                      class="w-full h-full transform -rotate-90"
-                      viewBox="0 0 100 100"
-                    >
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        fill="none"
-                        stroke="#e5e7eb"
-                        stroke-width="8"></circle>
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="40"
-                        fill="none"
-                        stroke="#dc2626"
-                        stroke-width="8"
-                        stroke-dasharray="125 251"
-                        stroke-linecap="round"></circle>
-                    </svg>
+    <!-- Main Content Container with gray background -->
+    <div
+      class="bg-white rounded-3xl shadow-2xl p-6 md:p-10 lg:p-12 border border-gray-100"
+    >
+      <div class="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+        <!-- Left Side: Dashboard Preview with animations -->
+        <div class="flex justify-center animate-fade-in-left">
+          <div class="relative w-full max-w-md group">
+            <!-- Glow effect on hover -->
+            <div
+              class="absolute -inset-4 bg-gradient-to-r from-blue-600 to-blue-400 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"
+            >
+            </div>
+
+            <!-- Laptop Frame -->
+            <div
+              class="relative bg-gray-800 rounded-t-xl p-2 shadow-2xl transform transition-transform duration-500 group-hover:scale-105 laptop-breathe"
+            >
+              <!-- Screen notch -->
+              <div
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-1 bg-gray-700 rounded-b-lg"
+              >
+              </div>
+
+              <div class="bg-white rounded-lg overflow-hidden">
+                <!-- Dashboard Content -->
+                <div class="p-6 md:p-8">
+                  <!-- Header with pulse animation -->
+                  <div class="text-xs text-gray-500 mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                      <div
+                        class="w-2 h-2 bg-green-500 rounded-full animate-pulse-dot"
+                      >
+                      </div>
+                      <span>Riesgo Organizacional: Alto</span>
+                    </div>
+                  </div>
+                  <!-- Gauge Chart with animated arc -->
+                  <div class="mb-6">
+                    <div class="relative w-32 h-32 mx-auto gauge-container">
+                      <!-- Fondo con glow pulsante -->
+                      <div class="absolute inset-0 gauge-glow"></div>
+
+                      <svg
+                        class="w-full h-full relative z-10"
+                        viewBox="0 0 100 100"
+                      >
+                        <!-- Background arc estático -->
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          fill="none"
+                          stroke="#e5e7eb"
+                          stroke-width="8"
+                          class="transition-all duration-300"></circle>
+
+                        <!-- Grupo que gira con el arco rojo -->
+                        <g class="gauge-arc-container" transform-origin="50 50">
+                          <!-- Arco rojo que gira -->
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="40"
+                            fill="none"
+                            stroke="#dc2626"
+                            stroke-width="8"
+                            stroke-dasharray="125 251"
+                            stroke-linecap="round"
+                            class="gauge-arc"
+                            transform="rotate(-90 50 50)"></circle>
+                        </g>
+                      </svg>
+
+                      <div
+                        class="absolute inset-0 flex flex-col items-center justify-center z-20"
+                      >
+                        <span
+                          class="text-3xl font-bold text-gray-900 counter"
+                          data-target="2.8">0</span
+                        >
+                        <span
+                          class="text-xs text-gray-500 font-semibold danger-text"
+                          >CRÍTICO</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Color Scale with animated indicator -->
+                  <div class="mb-6">
                     <div
-                      class="absolute inset-0 flex flex-col items-center justify-center"
+                      class="h-2 rounded-full bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 to-red-500 relative"
                     >
-                      <span class="text-3xl font-bold text-gray-900">2.8</span>
-                      <span class="text-xs text-gray-500">PELIGROSO</span>
+                      <div
+                        class="indicator-dot absolute w-3 h-3 bg-gray-900 rounded-full top-1/2 -translate-y-1/2 shadow-lg"
+                        style="left: 28%;"
+                      >
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Color Scale -->
-                <div class="mb-6">
-                  <div
-                    class="h-2 rounded-full bg-gradient-to-r from-green-500 via-yellow-500 via-orange-500 to-red-500 relative"
-                  >
+                  <!-- Metrics List with staggered animation -->
+                  <div class="space-y-3">
                     <div
-                      class="absolute w-3 h-3 bg-gray-900 rounded-full top-1/2 -translate-y-1/2 shadow-lg"
-                      style="left: 28%;"
+                      class="metric-item flex items-center justify-between text-sm opacity-0"
+                      style="animation-delay: 0.1s;"
                     >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Metrics List -->
-                <div class="space-y-3">
-                  <div class="flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-2">
-                      <svg
-                        class="w-4 h-4 text-green-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="text-gray-700">Capacitación reciente</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <div
-                        class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
-                      >
-                        <div
-                          class="h-full bg-gradient-to-r from-green-500 to-red-500"
-                          style="width: 65%;"
+                      <div class="flex items-center gap-2">
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
                         >
-                        </div>
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-gray-700">Condiciones laborales</span>
                       </div>
-                      <span class="text-xs font-semibold text-gray-600">34</span
-                      >
-                    </div>
-                  </div>
-
-                  <div class="flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-2">
-                      <svg
-                        class="w-4 h-4 text-green-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="text-gray-700">Compartir expectativas</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <div
-                        class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
-                      >
+                      <div class="flex items-center gap-2">
                         <div
-                          class="h-full bg-gradient-to-r from-green-500 via-orange-500 to-red-500"
-                          style="width: 55%;"
+                          class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
                         >
+                          <div
+                            class="metric-bar h-full bg-gradient-to-r from-green-500 to-red-500"
+                            style="width: 0%;"
+                            data-width="65"
+                          >
+                          </div>
                         </div>
+                        <span class="text-xs font-semibold text-gray-600"
+                          >34</span
+                        >
                       </div>
-                      <span class="text-xs font-semibold text-gray-600">28</span
-                      >
                     </div>
-                  </div>
 
-                  <div class="flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-2">
-                      <svg
-                        class="w-4 h-4 text-green-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="text-gray-700">Tiempo Adecuado</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <div
-                        class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
-                      >
-                        <div
-                          class="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500"
-                          style="width: 45%;"
+                    <div
+                      class="metric-item flex items-center justify-between text-sm opacity-0"
+                      style="animation-delay: 0.2s;"
+                    >
+                      <div class="flex items-center gap-2">
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
                         >
-                        </div>
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-gray-700">Oportunidades de crecimiento</span
+                        >
                       </div>
-                      <span class="text-xs font-semibold text-gray-600">12</span
-                      >
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
+                        >
+                          <div
+                            class="metric-bar h-full bg-gradient-to-r from-green-500 via-orange-500 to-red-500"
+                            style="width: 0%;"
+                            data-width="55"
+                          >
+                          </div>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-600"
+                          >28</span
+                        >
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="flex items-center justify-between text-sm">
-                    <div class="flex items-center gap-2">
-                      <svg
-                        class="w-4 h-4 text-green-600"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"></path>
-                      </svg>
-                      <span class="text-gray-700">Carga no excesivas</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <div
-                        class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
-                      >
-                        <div
-                          class="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500"
-                          style="width: 40%;"
+                    <div
+                      class="metric-item flex items-center justify-between text-sm opacity-0"
+                      style="animation-delay: 0.3s;"
+                    >
+                      <div class="flex items-center gap-2">
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
                         >
-                        </div>
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-gray-700">Relaciones y liderazgo</span>
                       </div>
-                      <span class="text-xs font-semibold text-gray-600">24</span
-                      >
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
+                        >
+                          <div
+                            class="metric-bar h-full bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500"
+                            style="width: 0%;"
+                            data-width="45"
+                          >
+                          </div>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-600"
+                          >12</span
+                        >
+                      </div>
                     </div>
+
+                    <div
+                      class="metric-item flex items-center justify-between text-sm opacity-0"
+                      style="animation-delay: 0.4s;"
+                    >
+                      <div class="flex items-center gap-2">
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-gray-700">Cultura de seguridad</span>
+                      </div>
+
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
+                        >
+                          <div
+                            class="metric-bar h-full bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500"
+                            style="width: 0%;"
+                            data-width="40"
+                          >
+                          </div>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-600"
+                          >24</span
+                        >
+                      </div>
+                    </div>
+
+
+
+                    <div
+                      class="metric-item flex items-center justify-between text-sm opacity-0"
+                      style="animation-delay: 0.4s;"
+                    >
+                      <div class="flex items-center gap-2">
+                        <svg
+                          class="w-4 h-4 text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-gray-700">Riesgos psicosociales</span>
+                      </div>
+
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden"
+                        >
+                          <div
+                            class="metric-bar h-full bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500"
+                            style="width: 0%;"
+                            data-width="40"
+                          >
+                          </div>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-600"
+                          >13</span
+                        >
+                      </div>
+                    </div>
+
+
+
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- Laptop Bottom -->
-          <div class="h-4 bg-gray-300 rounded-b-xl shadow-lg"></div>
-          <div class="h-1 bg-gray-400 rounded-b-lg mx-auto w-3/4"></div>
-        </div>
-      </div>
-
-      <!-- Right Side: Benefits List -->
-      <div class="space-y-6">
-        <div class="flex items-start gap-4 group">
-          <div class="flex-shrink-0 mt-1">
-            <svg
-              class="w-6 h-6 text-green-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div>
-            <h3
-              class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
-            >
-              Condiciones laborales
-            </h3>
+            <!-- Laptop Bottom -->
+            <div class="relative h-4 bg-gray-300 rounded-b-xl shadow-lg"></div>
+            <div class="relative h-1 bg-gray-400 rounded-b-lg mx-auto w-3/4">
+            </div>
           </div>
         </div>
 
-        <div class="flex items-start gap-4 group">
-          <div class="flex-shrink-0 mt-1">
-            <svg
-              class="w-6 h-6 text-green-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div>
-            <h3
-              class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
-            >
-              Oportunidades de crecimiento
-            </h3>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4 group">
-          <div class="flex-shrink-0 mt-1">
-            <svg
-              class="w-6 h-6 text-green-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div>
-            <h3
-              class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
-            >
-              Relaciones y liderazgo
-            </h3>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4 group">
-          <div class="flex-shrink-0 mt-1">
-            <svg
-              class="w-6 h-6 text-green-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div>
-            <h3
-              class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
-            >
-              Cultura de seguridad
-            </h3>
-          </div>
-        </div>
-
-        <div class="flex items-start gap-4 group">
-          <div class="flex-shrink-0 mt-1">
-            <svg
-              class="w-6 h-6 text-green-600"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div>
-            <h3
-              class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
-            >
-              Riesgos psicosociales
-            </h3>
-          </div>
-        </div>
-
-        <!-- CTA Button -->
-        <div class="pt-4">
-          <button
-            class="px-8 py-3.5 bg-blue-900 hover:bg-blue-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105"
+        <!-- Right Side: Benefits List with animations -->
+        <div class="space-y-5 animate-fade-in-right">
+          <div
+            class="benefit-item flex items-start gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:shadow-md group cursor-pointer"
+            style="animation-delay: 0.1s;"
           >
-            Iniciar Diagnóstico
-          </button>
+            <div class="flex-shrink-0 mt-1">
+              <div
+                class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3
+                class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
+              >
+                Condiciones laborales
+              </h3>
+              <p
+                class="text-sm text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                Evaluación de ambiente físico y recursos
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="benefit-item flex items-start gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:shadow-md group cursor-pointer"
+            style="animation-delay: 0.2s;"
+          >
+            <div class="flex-shrink-0 mt-1">
+              <div
+                class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3
+                class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
+              >
+                Oportunidades de crecimiento
+              </h3>
+              <p
+                class="text-sm text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                Desarrollo profesional y capacitación
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="benefit-item flex items-start gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:shadow-md group cursor-pointer"
+            style="animation-delay: 0.3s;"
+          >
+            <div class="flex-shrink-0 mt-1">
+              <div
+                class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3
+                class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
+              >
+                Relaciones y liderazgo
+              </h3>
+              <p
+                class="text-sm text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                Comunicación efectiva y gestión de equipos
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="benefit-item flex items-start gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:shadow-md group cursor-pointer"
+            style="animation-delay: 0.4s;"
+          >
+            <div class="flex-shrink-0 mt-1">
+              <div
+                class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3
+                class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
+              >
+                Cultura de seguridad
+              </h3>
+              <p
+                class="text-sm text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                Protocolos y prevención de riesgos
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="benefit-item flex items-start gap-4 p-4 rounded-xl transition-all duration-300 hover:bg-blue-50 hover:shadow-md group cursor-pointer"
+            style="animation-delay: 0.5s;"
+          >
+            <div class="flex-shrink-0 mt-1">
+              <div
+                class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+              >
+                <svg
+                  class="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </div>
+            <div>
+              <h3
+                class="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-900 transition-colors"
+              >
+                Riesgos psicosociales
+              </h3>
+              <p
+                class="text-sm text-gray-600 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                Bienestar emocional y salud mental
+              </p>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <div class="pt-4">
+            <a
+              href="/diagnostico"
+              class="inline-block px-8 py-4 bg-blue-900 hover:bg-blue-800 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            >
+              Iniciar Diagnóstico
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Animaciones de entrada */
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-left {
+    animation: fadeInLeft 0.8s ease-out;
+  }
+
+  .animate-fade-in-right {
+    animation: fadeInRight 0.8s ease-out;
+  }
+
+  .metric-item, .benefit-item {
+    animation: slideIn 0.6s ease-out forwards;
+  }
+
+  /* Animación del punto pulsante */
+  @keyframes pulseDot {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.2);
+    }
+  }
+
+  .animate-pulse-dot {
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+
+  /* Animación del arco del gauge - GIRO COMPLETO 360° */
+  @keyframes drawArc {
+    from {
+      stroke-dasharray: 0 251;
+    }
+    to {
+      stroke-dasharray: 125 251;
+    }
+  }
+
+  @keyframes rotateArc {
+    0% {
+      transform: rotate(-90deg);
+    }
+    100% {
+      transform: rotate(270deg);
+    }
+  }
+
+  @keyframes pulseArc {
+    0%, 100% {
+      stroke-width: 8;
+      opacity: 1;
+    }
+    50% {
+      stroke-width: 10;
+      opacity: 0.9;
+    }
+  }
+
+  .gauge-arc {
+    animation: 
+      drawArc 2s ease-out forwards,
+      pulseArc 3s ease-in-out 2s infinite;
+  }
+
+  /* Contenedor que gira el arco completo */
+  .gauge-arc-container {
+    animation: rotateArc 8s linear infinite;
+    transform-origin: 50% 50%;
+  }
+
+  /* Animación del contador con pulso */
+  @keyframes countUp {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes numberPulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+  }
+
+  .counter {
+    animation: 
+      countUp 0.5s ease-out,
+      numberPulse 2s ease-in-out 2.5s infinite;
+  }
+
+  /* Gauge container sin rotación (solo el arco gira) */
+  .gauge-container {
+    position: relative;
+  }
+
+  /* Brillo pulsante en el fondo del gauge - MÁS INTENSO */
+  @keyframes glowPulse {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(220, 38, 38, 0.2), 0 0 30px rgba(220, 38, 38, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(220, 38, 38, 0.4), 0 0 50px rgba(220, 38, 38, 0.2);
+    }
+  }
+
+  .gauge-glow {
+    animation: glowPulse 3s ease-in-out infinite;
+    border-radius: 50%;
+  }
+
+  /* Animación del indicador de la barra */
+  @keyframes slideIndicator {
+    from {
+      left: 0%;
+    }
+    to {
+      left: 28%;
+    }
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(-50%) scale(1);
+    }
+    50% {
+      transform: translateY(-50%) translateY(-3px) scale(1.1);
+    }
+  }
+
+  .indicator-dot {
+    animation: 
+      slideIndicator 1.5s ease-out 0.5s forwards,
+      bounce 2s ease-in-out 2s infinite;
+  }
+
+  /* Animación de las barras de métricas con pulso */
+  @keyframes fillBar {
+    from {
+      width: 0%;
+    }
+  }
+
+  @keyframes barShimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  .metric-bar {
+    animation: fillBar 1.5s ease-out forwards;
+    background-size: 200% 100%;
+    position: relative;
+  }
+
+  .metric-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: barShimmer 3s ease-in-out 2s infinite;
+  }
+
+  /* Pulso lento para el divisor */
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 3s ease-in-out infinite;
+  }
+
+  /* Animación sutil de respiración para la laptop */
+  @keyframes breathe {
+    0%, 100% {
+      transform: scale(1) translateY(0);
+    }
+    50% {
+      transform: scale(1.01) translateY(-2px);
+    }
+  }
+
+  .laptop-breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+
+  /* Shimmer effect en el texto "PELIGROSO" */
+  @keyframes textGlow {
+    0%, 100% {
+      text-shadow: 0 0 5px rgba(220, 38, 38, 0.3);
+    }
+    50% {
+      text-shadow: 0 0 10px rgba(220, 38, 38, 0.6);
+    }
+  }
+
+  .danger-text {
+    animation: textGlow 2s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Animación del contador
+    const counter = document.querySelector(".counter");
+    if (counter) {
+      const target = parseFloat(counter.getAttribute("data-target") || "2.8");
+      let current = 0;
+      const increment = target / 60;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        counter.textContent = current.toFixed(1);
+      }, 30);
+    }
+
+    // Animación de las barras de progreso
+    const metricBars = document.querySelectorAll(".metric-bar");
+    metricBars.forEach((bar) => {
+      const width = bar.getAttribute("data-width");
+      setTimeout(() => {
+        (bar as HTMLElement).style.width = `${width}%`;
+      }, 500);
+    });
+
+    // Animación continua de oscilación del contador después de cargar
+    setTimeout(() => {
+      if (counter) {
+        setInterval(() => {
+          const currentValue = parseFloat(counter.textContent || "2.8");
+          const variation = (Math.random() - 0.5) * 0.1; // Variación de ±0.05
+          const newValue = Math.max(
+            2.7,
+            Math.min(2.9, currentValue + variation),
+          );
+          counter.textContent = newValue.toFixed(1);
+        }, 3000);
+      }
+    }, 3000);
+  });
+</script>
