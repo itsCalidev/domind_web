@@ -1,39 +1,39 @@
-import { useState } from 'react';
-import { ClipboardList } from 'lucide-react';
-import type { Answer } from './DiagnosticContainer';
+import { useState } from "react";
+import { ClipboardList } from "lucide-react";
+import type { Answer } from "./DiagnosticContainer";
 
 const questions = [
   {
     id: 1,
-    text: '¿Con qué frecuencia siente que su carga de trabajo es manejable?',
-    category: 'Condiciones Laborales'
+    text: "¿Con qué frecuencia siente que su carga de trabajo es manejable?",
+    category: "Condiciones Laborales",
   },
   {
     id: 2,
-    text: '¿Considera que tiene oportunidades de crecimiento en su organización?',
-    category: 'Desarrollo'
+    text: "¿Considera que tiene oportunidades de crecimiento en su organización?",
+    category: "Desarrollo",
   },
   {
     id: 3,
-    text: '¿Qué tan frecuentemente recibe retroalimentación de su supervisor?',
-    category: 'Liderazgo'
+    text: "¿Qué tan frecuentemente recibe retroalimentación de su supervisor?",
+    category: "Liderazgo",
   },
   {
     id: 4,
-    text: '¿Se siente seguro reportando incidentes o riesgos en su trabajo?',
-    category: 'Seguridad'
+    text: "¿Se siente seguro reportando incidentes o riesgos en su trabajo?",
+    category: "Seguridad",
   },
   {
     id: 5,
-    text: '¿Con qué frecuencia experimenta estrés relacionado con el trabajo?',
-    category: 'Riesgos Psicosociales'
-  }
+    text: "¿Con qué frecuencia experimenta estrés relacionado con el trabajo?",
+    category: "Riesgos Psicosociales",
+  },
 ];
 
 const options = [
-  { label: 'Nunca', value: 0, color: 'bg-red-500' },
-  { label: 'A veces', value: 1, color: 'bg-yellow-500' },
-  { label: 'Siempre', value: 2, color: 'bg-green-500' }
+  { label: "Nunca", value: 0, color: "bg-red-500" },
+  { label: "A veces", value: 1, color: "bg-yellow-500" },
+  { label: "Siempre", value: 2, color: "bg-green-500" },
 ];
 
 interface QuizFormProps {
@@ -50,7 +50,7 @@ export default function QuizForm({ onComplete }: QuizFormProps) {
 
     const newAnswers = [
       ...answers,
-      { questionId: questions[currentQuestion].id, value: selectedValue }
+      { questionId: questions[currentQuestion].id, value: selectedValue },
     ];
     setAnswers(newAnswers);
     setSelectedValue(null);
@@ -75,7 +75,8 @@ export default function QuizForm({ onComplete }: QuizFormProps) {
           Diagnóstico Organizacional
         </h1>
         <p className="text-gray-600">
-          Responde las siguientes preguntas para obtener tu reporte personalizado
+          Responde las siguientes preguntas para obtener tu reporte
+          personalizado
         </p>
       </div>
 
@@ -116,16 +117,16 @@ export default function QuizForm({ onComplete }: QuizFormProps) {
               onClick={() => setSelectedValue(option.value)}
               className={`w-full p-6 rounded-xl border-2 transition-all duration-200 text-left ${
                 selectedValue === option.value
-                  ? 'border-blue-900 bg-blue-50 shadow-md scale-105'
-                  : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                  ? "border-blue-900 bg-blue-50 shadow-md scale-105"
+                  : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
               }`}
             >
               <div className="flex items-center gap-4">
                 <div
                   className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                     selectedValue === option.value
-                      ? 'border-blue-900 bg-blue-900'
-                      : 'border-gray-300'
+                      ? "border-blue-900 bg-blue-900"
+                      : "border-gray-300"
                   }`}
                 >
                   {selectedValue === option.value && (
@@ -165,7 +166,9 @@ export default function QuizForm({ onComplete }: QuizFormProps) {
           disabled={selectedValue === null}
           className="px-8 py-3 bg-blue-900 hover:bg-blue-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         >
-          {currentQuestion === questions.length - 1 ? 'Ver Resultados' : 'Siguiente'}
+          {currentQuestion === questions.length - 1
+            ? "Ver Resultados"
+            : "Siguiente"}
         </button>
       </div>
     </div>

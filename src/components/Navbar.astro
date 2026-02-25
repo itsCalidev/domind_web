@@ -1,15 +1,22 @@
 ---
+
 ---
 
-<nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-full max-w-6xl px-4">
-  <div id="navbar-content" class="bg-transparent backdrop-blur-sm rounded-2xl shadow-none border border-transparent px-6 py-3 transition-all duration-300">
+<nav
+  id="navbar"
+  class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 w-full max-w-6xl px-4"
+>
+  <div
+    id="navbar-content"
+    class="bg-transparent backdrop-blur-sm rounded-2xl shadow-none border border-transparent px-6 py-3 transition-all duration-300"
+  >
     <div class="flex justify-between items-center">
       <!-- Logo -->
       <div class="flex-shrink-0">
         <a href="/" class="block">
-          <img 
-            src="src/assets/logo.png" 
-            alt="DOMIND" 
+          <img
+            src="logo.png"
+            alt="DOMIND"
             class="h-10 w-auto transition-all duration-300"
             style="width: auto; height: 3rem;"
             id="logo"
@@ -19,63 +26,264 @@
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-        <a href="https://www.linkedin.com/in/domind/" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-900 font-medium transition-colors">
-          Linkedin
-        </a>
-        <a href="#podcast" class="text-gray-700 hover:text-blue-900 font-medium transition-colors">
-          Podcast
-        </a>
-        <a href="#newsletter" class="text-gray-700 hover:text-blue-900 font-medium transition-colors">
-          Newsletter
-        </a>
-        <button class="p-2 text-gray-700 hover:text-blue-900 transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <!-- Home -->
+        <a
+          href="/"
+          class="flex items-center gap-2 text-gray-700 hover:text-blue-900 font-medium transition-all duration-200 group"
+        >
+          <svg
+            class="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            ></path>
           </svg>
-        </button>
+          <span>Home</span>
+        </a>
+
+        <!-- Workshops -->
+        <a
+          href="workshops"
+          class="flex items-center gap-2 text-gray-700 hover:text-blue-900 font-medium transition-all duration-200 group"
+        >
+          <svg
+            class="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+          <span>Workshops</span>
+        </a>
+
+        <!-- Email -->
+        <a
+          href="mailto:contacto@domind.com"
+          class="p-2.5 text-gray-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-all duration-200 group"
+          aria-label="Contacto por email"
+        >
+          <svg
+            class="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            ></path>
+          </svg>
+        </a>
       </div>
 
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
-        <button id="mobile-menu-btn" class="p-2 text-gray-700 hover:text-blue-900">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <button
+          id="mobile-menu-btn"
+          class="p-2 text-gray-700 hover:text-blue-900 transition-colors"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="md:hidden hidden mt-2">
+    <div
+      class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200/50 py-4 px-6"
+    >
+      <div class="flex flex-col space-y-4">
+        <a
+          href="/"
+          class="flex items-center gap-3 text-gray-700 hover:text-blue-900 font-medium transition-colors py-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            ></path>
+          </svg>
+          <span>Home</span>
+        </a>
+
+        <a
+          href="#workshops"
+          class="flex items-center gap-3 text-gray-700 hover:text-blue-900 font-medium transition-colors py-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+            ></path>
+          </svg>
+          <span>Workshops</span>
+        </a>
+
+        <a
+          href="mailto:contacto@domind.com"
+          class="flex items-center gap-3 text-gray-700 hover:text-blue-900 font-medium transition-colors py-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            ></path>
+          </svg>
+          <span>Contacto</span>
+        </a>
       </div>
     </div>
   </div>
 </nav>
 
 <script>
-  // Navbar scroll behavior
-  const navbar = document.getElementById('navbar');
-  const navbarContent = document.getElementById('navbar-content');
-  const logo = document.getElementById('logo');
+  // Navbar scroll behavior with proper initialization
+  const navbar = document.getElementById("navbar");
+  const navbarContent = document.getElementById("navbar-content");
+  const logo = document.getElementById("logo");
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
 
-  window.addEventListener('scroll', () => {
+  // Function to update navbar style based on scroll position
+  function updateNavbarStyle() {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll <= 100) {
       // At top - transparent floating state
-      navbar?.classList.remove('top-0', 'max-w-full', 'px-0');
-      navbar?.classList.add('top-4', 'max-w-6xl', 'px-4');
-      
-      navbarContent?.classList.remove('bg-white/90', 'shadow-lg', 'border-gray-200/50');
-      navbarContent?.classList.add('bg-transparent', 'shadow-none', 'border-transparent');
-      
-      logo?.classList.remove('h-8');
-      logo?.classList.add('h-10');
+      navbar?.classList.remove("top-0", "max-w-full", "px-0");
+      navbar?.classList.add("top-4", "max-w-6xl", "px-4");
+
+      navbarContent?.classList.remove(
+        "bg-white/90",
+        "shadow-lg",
+        "border-gray-200/50",
+      );
+      navbarContent?.classList.add(
+        "bg-transparent",
+        "shadow-none",
+        "border-transparent",
+      );
+
+      logo?.classList.remove("h-8");
+      logo?.classList.add("h-10");
     } else {
       // Scrolled - white full width sticky
-      navbar?.classList.remove('top-4', 'max-w-6xl', 'px-4');
-      navbar?.classList.add('top-0', 'max-w-full', 'px-0');
-      
-      navbarContent?.classList.remove('bg-transparent', 'shadow-none', 'border-transparent');
-      navbarContent?.classList.add('bg-white/90', 'shadow-lg', 'border-gray-200/50');
-      
-      logo?.classList.remove('h-10');
-      logo?.classList.add('h-8');
+      navbar?.classList.remove("top-4", "max-w-6xl", "px-4");
+      navbar?.classList.add("top-0", "max-w-full", "px-0");
+
+      navbarContent?.classList.remove(
+        "bg-transparent",
+        "shadow-none",
+        "border-transparent",
+      );
+      navbarContent?.classList.add(
+        "bg-white/90",
+        "shadow-lg",
+        "border-gray-200/50",
+      );
+
+      logo?.classList.remove("h-10");
+      logo?.classList.add("h-8");
+    }
+  }
+
+  // Initialize navbar style on page load
+  function initNavbar() {
+    // Immediately set correct state without transition
+    if (navbar && navbarContent) {
+      // Temporarily disable transitions
+      navbar.style.transition = "none";
+      navbarContent.style.transition = "none";
+
+      // Set initial state
+      updateNavbarStyle();
+
+      // Re-enable transitions after a small delay
+      setTimeout(() => {
+        if (navbar && navbarContent) {
+          navbar.style.transition = "";
+          navbarContent.style.transition = "";
+        }
+      }, 50);
+    }
+  }
+
+  // Mobile menu toggle
+  mobileMenuBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("hidden");
+  });
+
+  // Close mobile menu when clicking a link
+  const mobileLinks = mobileMenu?.querySelectorAll("a");
+  mobileLinks?.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.add("hidden");
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+      const target = e.target as HTMLElement;
+      if (!mobileMenu.contains(target) && !mobileMenuBtn?.contains(target)) {
+        mobileMenu.classList.add("hidden");
+      }
     }
   });
+
+  // Scroll event listener
+  window.addEventListener("scroll", updateNavbarStyle);
+
+  // Initialize on page load
+  initNavbar();
+
+  // Re-initialize on page show (handles browser back/forward)
+  window.addEventListener("pageshow", initNavbar);
 </script>

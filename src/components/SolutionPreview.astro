@@ -193,7 +193,8 @@
                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                             clip-rule="evenodd"></path>
                         </svg>
-                        <span class="text-gray-700">Oportunidades de crecimiento</span
+                        <span class="text-gray-700"
+                          >Oportunidades de crecimiento</span
                         >
                       </div>
                       <div class="flex items-center gap-2">
@@ -228,7 +229,8 @@
                             d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                             clip-rule="evenodd"></path>
                         </svg>
-                        <span class="text-gray-700">Relaciones y liderazgo</span>
+                        <span class="text-gray-700">Relaciones y liderazgo</span
+                        >
                       </div>
                       <div class="flex items-center gap-2">
                         <div
@@ -282,8 +284,6 @@
                       </div>
                     </div>
 
-
-
                     <div
                       class="metric-item flex items-center justify-between text-sm opacity-0"
                       style="animation-delay: 0.4s;"
@@ -318,9 +318,6 @@
                         >
                       </div>
                     </div>
-
-
-
                   </div>
                 </div>
               </div>
@@ -562,13 +559,15 @@
     animation: fadeInRight 0.8s ease-out;
   }
 
-  .metric-item, .benefit-item {
+  .metric-item,
+  .benefit-item {
     animation: slideIn 0.6s ease-out forwards;
   }
 
   /* Animación del punto pulsante */
   @keyframes pulseDot {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
@@ -602,7 +601,8 @@
   }
 
   @keyframes pulseArc {
-    0%, 100% {
+    0%,
+    100% {
       stroke-width: 8;
       opacity: 1;
     }
@@ -613,7 +613,7 @@
   }
 
   .gauge-arc {
-    animation: 
+    animation:
       drawArc 2s ease-out forwards,
       pulseArc 3s ease-in-out 2s infinite;
   }
@@ -635,7 +635,8 @@
   }
 
   @keyframes numberPulse {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
     }
     50% {
@@ -644,7 +645,7 @@
   }
 
   .counter {
-    animation: 
+    animation:
       countUp 0.5s ease-out,
       numberPulse 2s ease-in-out 2.5s infinite;
   }
@@ -656,11 +657,16 @@
 
   /* Brillo pulsante en el fondo del gauge - MÁS INTENSO */
   @keyframes glowPulse {
-    0%, 100% {
-      box-shadow: 0 0 15px rgba(220, 38, 38, 0.2), 0 0 30px rgba(220, 38, 38, 0.1);
+    0%,
+    100% {
+      box-shadow:
+        0 0 15px rgba(220, 38, 38, 0.2),
+        0 0 30px rgba(220, 38, 38, 0.1);
     }
     50% {
-      box-shadow: 0 0 25px rgba(220, 38, 38, 0.4), 0 0 50px rgba(220, 38, 38, 0.2);
+      box-shadow:
+        0 0 25px rgba(220, 38, 38, 0.4),
+        0 0 50px rgba(220, 38, 38, 0.2);
     }
   }
 
@@ -680,7 +686,8 @@
   }
 
   @keyframes bounce {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(-50%) scale(1);
     }
     50% {
@@ -689,7 +696,7 @@
   }
 
   .indicator-dot {
-    animation: 
+    animation:
       slideIndicator 1.5s ease-out 0.5s forwards,
       bounce 2s ease-in-out 2s infinite;
   }
@@ -717,7 +724,7 @@
   }
 
   .metric-bar::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -734,7 +741,8 @@
 
   /* Pulso lento para el divisor */
   @keyframes pulseSlow {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -748,7 +756,8 @@
 
   /* Animación sutil de respiración para la laptop */
   @keyframes breathe {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1) translateY(0);
     }
     50% {
@@ -762,7 +771,8 @@
 
   /* Shimmer effect en el texto "PELIGROSO" */
   @keyframes textGlow {
-    0%, 100% {
+    0%,
+    100% {
       text-shadow: 0 0 5px rgba(220, 38, 38, 0.3);
     }
     50% {

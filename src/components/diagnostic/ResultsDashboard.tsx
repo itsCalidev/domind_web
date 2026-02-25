@@ -1,5 +1,11 @@
-import { AlertTriangle, TrendingDown, Award, RefreshCw, Download } from 'lucide-react';
-import type { Answer } from './DiagnosticContainer';
+import {
+  AlertTriangle,
+  TrendingDown,
+  Award,
+  RefreshCw,
+  Download,
+} from "lucide-react";
+import type { Answer } from "./DiagnosticContainer";
 
 interface ResultsDashboardProps {
   score: number;
@@ -7,38 +13,61 @@ interface ResultsDashboardProps {
   onRestart: () => void;
 }
 
-export default function ResultsDashboard({ score, answers, onRestart }: ResultsDashboardProps) {
+export default function ResultsDashboard({
+  score,
+  answers,
+  onRestart,
+}: ResultsDashboardProps) {
   // Mock data basado en el score
   const getRiskLevel = (score: number) => {
-    if (score <= 2) return { label: 'Riesgo Crítico', color: 'text-red-600', bgColor: 'bg-red-50' };
-    if (score <= 3) return { label: 'Riesgo Alto', color: 'text-red-600', bgColor: 'bg-red-50' };
-    if (score <= 3.5) return { label: 'Moderado', color: 'text-yellow-600', bgColor: 'bg-yellow-50' };
-    return { label: 'Bajo Riesgo', color: 'text-green-600', bgColor: 'bg-green-50' };
+    if (score <= 2)
+      return {
+        label: "Riesgo Crítico",
+        color: "text-red-600",
+        bgColor: "bg-red-50",
+      };
+    if (score <= 3)
+      return {
+        label: "Riesgo Alto",
+        color: "text-red-600",
+        bgColor: "bg-red-50",
+      };
+    if (score <= 3.5)
+      return {
+        label: "Moderado",
+        color: "text-yellow-600",
+        bgColor: "bg-yellow-50",
+      };
+    return {
+      label: "Bajo Riesgo",
+      color: "text-green-600",
+      bgColor: "bg-green-50",
+    };
   };
 
   const riskLevel = getRiskLevel(score);
 
   // Mock metrics - Ajustados para coincidir con la imagen
   const metrics = [
-    { label: 'Condiciones Laborales', score: score - 0.2, max: 4, icon: '🏢' },
-    { label: 'Relaciones y Liderazgo', score: score - 0.5, max: 4, icon: '💬' },
-    { label: 'Seguridad', score: score + 0.1, max: 4, icon: '🛡️' },
-    { label: 'Riesgos Psicosociales', score: score - 0.3, max: 4, icon: '🧠' }
+    { label: "Condiciones Laborales", score: score - 0.2, max: 4, icon: "🏢" },
+    { label: "Relaciones y Liderazgo", score: score - 0.5, max: 4, icon: "💬" },
+    { label: "Seguridad", score: score + 0.1, max: 4, icon: "🛡️" },
+    { label: "Riesgos Psicosociales", score: score - 0.3, max: 4, icon: "🧠" },
   ];
 
   const rotationRisk = Math.round(((4 - score) / 4) * 100);
 
   // Mock data para el gráfico de dona
   const donutData = [
-    { label: 'Crítico', value: 35, color: '#dc2626' },
-    { label: 'Alto', value: 25, color: '#f97316' },
-    { label: 'Medio', value: 20, color: '#eab308' },
-    { label: 'Bajo', value: 20, color: '#22c55e' }
+    { label: "Crítico", value: 35, color: "#dc2626" },
+    { label: "Alto", value: 25, color: "#f97316" },
+    { label: "Medio", value: 20, color: "#eab308" },
+    { label: "Bajo", value: 20, color: "#22c55e" },
   ];
 
-  const currentDate = new Date().toLocaleDateString('es-ES', { 
-    year: 'numeric', 
-    month: 'long' 
+  const currentDate = new Date().toLocaleDateString("es-ES", {
+    year: "numeric",
+    month: "long",
   });
 
   return (
@@ -48,7 +77,8 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">
-              Informe de Diagnóstico <span className="font-normal">Organizacional</span>
+              Informe de Diagnóstico{" "}
+              <span className="font-normal">Organizacional</span>
             </h1>
           </div>
           <div className="flex items-center gap-4">
@@ -118,7 +148,7 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
                   strokeWidth="16"
                   strokeLinecap="round"
                 />
-                
+
                 {/* Needle - Dark gray/black */}
                 <g transform={`rotate(${-90 + (score / 4) * 180} 100 100)`}>
                   <line
@@ -136,7 +166,9 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
 
               {/* Score Display */}
               <div className="absolute inset-0 flex flex-col items-center justify-end pb-2">
-                <div className="text-sm font-semibold text-gray-600 mb-1">Nivel General</div>
+                <div className="text-sm font-semibold text-gray-600 mb-1">
+                  Nivel General
+                </div>
                 <div className="text-5xl font-bold text-red-600">{score}</div>
                 <div className="text-base font-bold text-red-600 mt-1">
                   {riskLevel.label}
@@ -156,11 +188,11 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
                   <div className="flex-1 bg-orange-500"></div>
                   <div className="flex-1 bg-red-500"></div>
                 </div>
-                
+
                 {/* Indicator - círculo azul oscuro */}
                 <div
                   className="absolute top-1/2 -translate-y-1/2 w-5 h-5 bg-blue-900 rounded-full border-3 border-white shadow-xl z-10"
-                  style={{ left: `${(score / 4) * 100}%`, marginLeft: '-10px' }}
+                  style={{ left: `${(score / 4) * 100}%`, marginLeft: "-10px" }}
                 ></div>
               </div>
               <div className="flex justify-between text-xs text-gray-500 px-1">
@@ -187,7 +219,7 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
                     {metric.label}
                   </span>
                 </div>
-                
+
                 {/* Traffic Light Bar - Más delgada */}
                 <div className="relative h-6 rounded-md overflow-hidden bg-gray-100">
                   <div className="absolute inset-0 flex">
@@ -251,14 +283,47 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
               <div className="flex items-center gap-2">
                 <svg className="w-16 h-4" viewBox="0 0 60 20">
                   <defs>
-                    <marker id="arrowleft" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                      <path d="M 8 5 L 2 5 L 5 2 M 2 5 L 5 8" stroke="#9ca3af" fill="none" strokeWidth="1"/>
+                    <marker
+                      id="arrowleft"
+                      markerWidth="10"
+                      markerHeight="10"
+                      refX="5"
+                      refY="5"
+                      orient="auto"
+                    >
+                      <path
+                        d="M 8 5 L 2 5 L 5 2 M 2 5 L 5 8"
+                        stroke="#9ca3af"
+                        fill="none"
+                        strokeWidth="1"
+                      />
                     </marker>
-                    <marker id="arrowright" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                      <path d="M 2 5 L 8 5 L 5 2 M 8 5 L 5 8" stroke="#9ca3af" fill="none" strokeWidth="1"/>
+                    <marker
+                      id="arrowright"
+                      markerWidth="10"
+                      markerHeight="10"
+                      refX="5"
+                      refY="5"
+                      orient="auto"
+                    >
+                      <path
+                        d="M 2 5 L 8 5 L 5 2 M 8 5 L 5 8"
+                        stroke="#9ca3af"
+                        fill="none"
+                        strokeWidth="1"
+                      />
                     </marker>
                   </defs>
-                  <line x1="5" y1="10" x2="55" y2="10" stroke="#9ca3af" strokeWidth="1.5" markerStart="url(#arrowleft)" markerEnd="url(#arrowright)"/>
+                  <line
+                    x1="5"
+                    y1="10"
+                    x2="55"
+                    y2="10"
+                    stroke="#9ca3af"
+                    strokeWidth="1.5"
+                    markerStart="url(#arrowleft)"
+                    markerEnd="url(#arrowright)"
+                  />
                 </svg>
               </div>
             </div>
@@ -315,26 +380,29 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
                     stroke="#334155"
                     strokeWidth="40"
                   />
-                  
+
                   {/* Segments */}
                   {(() => {
                     let currentAngle = 0;
-                    const total = donutData.reduce((sum, d) => sum + d.value, 0);
+                    const total = donutData.reduce(
+                      (sum, d) => sum + d.value,
+                      0,
+                    );
                     return donutData.map((segment, idx) => {
                       const segmentAngle = (segment.value / total) * 360;
                       const startAngle = currentAngle;
                       currentAngle += segmentAngle;
-                      
+
                       const startRad = (startAngle - 90) * (Math.PI / 180);
                       const endRad = (currentAngle - 90) * (Math.PI / 180);
-                      
+
                       const x1 = 100 + 80 * Math.cos(startRad);
                       const y1 = 100 + 80 * Math.sin(startRad);
                       const x2 = 100 + 80 * Math.cos(endRad);
                       const y2 = 100 + 80 * Math.sin(endRad);
-                      
+
                       const largeArc = segmentAngle > 180 ? 1 : 0;
-                      
+
                       return (
                         <path
                           key={idx}
@@ -344,7 +412,7 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
                       );
                     });
                   })()}
-                  
+
                   {/* Center hole */}
                   <circle cx="100" cy="100" r="50" fill="#334155" />
                 </svg>
@@ -352,19 +420,21 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
 
               {/* Legend */}
               <div className="space-y-2">
-                <h3 className="text-white font-bold text-sm mb-3">Categorías</h3>
+                <h3 className="text-white font-bold text-sm mb-3">
+                  Categorías
+                </h3>
                 {donutData.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2">
-                    <div 
-                      className="w-3 h-3 rounded-sm flex-shrink-0" 
+                    <div
+                      className="w-3 h-3 rounded-sm flex-shrink-0"
                       style={{ backgroundColor: item.color }}
                     ></div>
                     <div className="flex-1 bg-slate-600 h-2 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full" 
-                        style={{ 
+                      <div
+                        className="h-full"
+                        style={{
                           backgroundColor: item.color,
-                          width: `${item.value}%` 
+                          width: `${item.value}%`,
                         }}
                       ></div>
                     </div>
@@ -403,11 +473,11 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
                   <div className="w-16 h-16 bg-gray-200 rounded-full border-4 border-gray-300 relative">
                     <div className="absolute inset-2 bg-orange-500 rounded-full"></div>
                   </div>
-                  
+
                   {/* Tube */}
                   <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-8 h-40 bg-gray-200 border-4 border-gray-300 rounded-t-full">
                     {/* Fill */}
-                    <div 
+                    <div
                       className="absolute bottom-0 left-0 right-0 bg-orange-500 rounded-t-full transition-all duration-1000"
                       style={{ height: `${rotationRisk}%` }}
                     ></div>
@@ -418,7 +488,8 @@ export default function ResultsDashboard({ score, answers, onRestart }: ResultsD
               {/* Info */}
               <div className="flex-1">
                 <h3 className="text-gray-800 font-bold text-lg mb-2">
-                  Probabilidad de Rotación: <span className="text-orange-500">{rotationRisk}%</span>
+                  Probabilidad de Rotación:{" "}
+                  <span className="text-orange-500">{rotationRisk}%</span>
                 </h3>
                 <div className="space-y-1">
                   <div className="h-2 bg-gray-200 rounded-full"></div>
