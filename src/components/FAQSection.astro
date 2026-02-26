@@ -1,0 +1,196 @@
+---
+const faqData = [
+  {
+    category: "Servicios y Diagnóstico",
+    questions: [
+      {
+        q: "¿En qué consiste el diagnóstico organizacional gratuito?",
+        a: "Nuestro diagnóstico organizacional es una evaluación integral del clima laboral, seguridad y bienestar de tu organización. Incluye cuestionarios especializados, análisis de riesgos psicosociales y un reporte detallado con recomendaciones específicas para tu empresa."
+      },
+      {
+        q: "¿Cuánto tiempo toma completar el diagnóstico?",
+        a: "El diagnóstico completo toma aproximadamente 15-20 minutos. Una vez completado, recibirás tu reporte de resultados de manera inmediata en pantalla, con la opción de descargarlo en PDF."
+      },
+      {
+        q: "¿Los resultados del diagnóstico son confidenciales?",
+        a: "Absolutamente. Todos los datos recopilados están protegidos bajo estrictos protocolos de confidencialidad. Los resultados son exclusivamente para uso interno de tu organización y no se comparten con terceros."
+      }
+    ]
+  },
+  {
+    category: "Workshops y Capacitaciones",
+    questions: [
+      {
+        q: "¿Qué modalidades de workshops ofrecen?",
+        a: "Ofrecemos workshops en tres modalidades: presenciales en sus instalaciones, virtuales en vivo a través de plataforma digital, e híbridos que combinan ambas opciones. Todos incluyen material didáctico y certificado de participación."
+      },
+      {
+        q: "¿Cuál es el número mínimo y máximo de participantes?",
+        a: "Nuestros workshops están diseñados para grupos de 10 a 30 personas. Para grupos más grandes, podemos organizar múltiples sesiones o adaptar el formato para asegurar la mejor experiencia de aprendizaje."
+      },
+      {
+        q: "¿Los workshops pueden personalizarse según nuestras necesidades?",
+        a: "Sí, todos nuestros programas son adaptables. Realizamos una evaluación previa de tus necesidades específicas y diseñamos el contenido para abordar los retos particulares de tu organización."
+      }
+    ]
+  },
+  {
+    category: "Consultoría y Seguimiento",
+    questions: [
+      {
+        q: "¿Ofrecen seguimiento después de los workshops?",
+        a: "Sí, incluimos un programa de seguimiento de 3 meses sin costo adicional. Esto incluye sesiones de consulta, evaluación de progreso y ajustes a las estrategias implementadas según los resultados observados."
+      },
+      {
+        q: "¿Cómo miden el impacto de las intervenciones?",
+        a: "Utilizamos indicadores cuantitativos y cualitativos: encuestas pre y post intervención, análisis de métricas organizacionales (rotación, ausentismo, accidentes), y evaluaciones de clima laboral. Entregamos reportes trimestrales con análisis comparativo."
+      },
+      {
+        q: "¿Trabajan con organizaciones de todos los tamaños?",
+        a: "Sí, tenemos experiencia con empresas desde 15 hasta más de 5,000 colaboradores. Adaptamos nuestras metodologías y herramientas según el tamaño y características específicas de cada organización."
+      }
+    ]
+  },
+  {
+    category: "Costos y Facturación",
+    questions: [
+      {
+        q: "¿Cómo se estructura el costo de los servicios?",
+        a: "Nuestros servicios se cotizan según el alcance del proyecto, número de participantes y duración. El diagnóstico inicial es gratuito. Los workshops tienen un costo por sesión, y la consultoría integral se cotiza por proyecto. Solicitamos una propuesta personalizada."
+      }
+    ]
+  }
+];
+---
+
+<section class="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    {faqData.map((section, sectionIndex) => (
+      <div class="mb-12 md:mb-16 animate-fade-in-up" style={`animation-delay: ${sectionIndex * 0.1}s`}>
+        <!-- Category Title -->
+        <div class="mb-6">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            {section.category}
+          </h2>
+          <div class="w-16 h-1 bg-blue-900"></div>
+        </div>
+
+        <!-- Questions -->
+        <div class="space-y-4">
+          {section.questions.map((item, index) => (
+            <div class="faq-item bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-md">
+              <button 
+                class="faq-question w-full text-left px-6 py-5 flex items-center justify-between gap-4 transition-colors duration-200 hover:bg-gray-50"
+                data-faq-id={`faq-${sectionIndex}-${index}`}
+              >
+                <span class="font-semibold text-gray-900 text-base md:text-lg pr-4">
+                  {item.q}
+                </span>
+                <svg 
+                  class="faq-icon w-6 h-6 text-blue-900 flex-shrink-0 transition-transform duration-300" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <div 
+                class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+                data-faq-answer={`faq-${sectionIndex}-${index}`}
+              >
+                <div class="px-6 pb-5 text-gray-600 leading-relaxed">
+                  {item.a}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <!-- CTA Section -->
+    <div class="mt-16 bg-gradient-to-br from-blue-900 to-blue-700 rounded-2xl p-8 md:p-12 text-center text-white">
+      <h3 class="text-2xl md:text-3xl font-bold mb-4">
+        ¿No encontraste lo que buscabas?
+      </h3>
+      <p class="text-lg text-blue-100 mb-6 max-w-2xl mx-auto">
+        Contáctanos directamente y con gusto resolveremos todas tus dudas
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="mailto:info@domind.com"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-900 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-200 transform hover:scale-105"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Enviar Email
+        </a>
+        <a 
+          href="/diagnostico"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-800 text-white font-semibold rounded-xl hover:bg-blue-700 transition-all duration-200 transform hover:scale-105 border-2 border-white/20"
+        >
+          Realizar Diagnóstico Gratuito
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .faq-answer.active {
+    max-height: 500px;
+    padding-top: 0;
+  }
+
+  .faq-icon.rotate {
+    transform: rotate(180deg);
+  }
+</style>
+
+<script>
+  // FAQ Accordion functionality
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const faqId = button.getAttribute('data-faq-id');
+      const answer = document.querySelector(`[data-faq-answer="${faqId}"]`);
+      const icon = button.querySelector('.faq-icon');
+      
+      // Toggle current item
+      const isOpen = answer?.classList.contains('active');
+      
+      if (isOpen) {
+        answer?.classList.remove('active');
+        icon?.classList.remove('rotate');
+      } else {
+        // Close all other items (optional - remove if you want multiple open)
+        document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.remove('active'));
+        document.querySelectorAll('.faq-icon').forEach(ic => ic.classList.remove('rotate'));
+        
+        // Open clicked item
+        answer?.classList.add('active');
+        icon?.classList.add('rotate');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,370 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsappButton from '../components/WhatsappButton.astro';
+---
+
+<Layout title="DOMIND | Términos y Condiciones">
+  <Navbar />
+  <WhatsappButton />
+  
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="relative h-[300px] bg-gradient-to-br from-blue-900 to-indigo-900 overflow-hidden">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      
+      <div class="relative h-full flex items-center justify-center text-center px-4">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 animate-fade-in-up">
+            Términos y Condiciones
+          </h1>
+          <p class="text-lg sm:text-xl text-blue-100 animate-fade-in-up animation-delay-200">
+            Última actualización: Enero 2026
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-16 md:py-24 bg-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="prose prose-lg max-w-none">
+          
+          <!-- Introducción -->
+          <div class="mb-12 animate-fade-in-up">
+            <p class="text-lg text-gray-700 leading-relaxed text-justify">
+              Bienvenido a DOMIND. Al acceder y utilizar nuestro sitio web y servicios, aceptas estar sujeto a los siguientes Términos y Condiciones. Por favor, léelos cuidadosamente antes de utilizar nuestros servicios. Si no estás de acuerdo con estos términos, te pedimos que no utilices nuestro sitio web ni nuestros servicios
+            </p>
+          </div>
+
+          <!-- Section 1 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.1s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">1</span>
+              Aceptación de los Términos
+            </h2>
+            
+            <div class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+              <p class="text-gray-700 mb-4">
+                Al utilizar nuestros servicios, confirmas que:
+              </p>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-blue-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Eres mayor de 18 años o tienes autorización de un tutor legal.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-blue-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Tienes capacidad legal para celebrar contratos vinculantes.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-blue-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Proporcionarás información veraz, precisa y completa.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <svg class="w-6 h-6 text-blue-900 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Actuarás representando a una organización con autorización para ello.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Section 2 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.2s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">2</span>
+              Descripción de Servicios
+            </h2>
+            
+            <div class="space-y-6">
+              <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                  <span class="text-2xl">📊</span>
+                  Diagnóstico Organizacional
+                </h3>
+                <p class="text-gray-700">
+                  Ofrecemos evaluaciones gratuitas y de pago sobre clima laboral, seguridad y bienestar organizacional. Los resultados son orientativos y no constituyen asesoría legal o médica.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                  <span class="text-2xl">👥</span>
+                  Workshops y Capacitaciones
+                </h3>
+                <p class="text-gray-700">
+                  Programas educativos presenciales y virtuales sobre temas de gestión organizacional, liderazgo, seguridad laboral y desarrollo humano.
+                </p>
+              </div>
+
+              <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
+                  <span class="text-2xl">💼</span>
+                  Consultoría Especializada
+                </h3>
+                <p class="text-gray-700">
+                  Servicios personalizados de asesoría en transformación organizacional, implementación de políticas de seguridad y programas de bienestar laboral.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.3s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">3</span>
+              Uso Aceptable
+            </h2>
+            
+            <div class="bg-red-50 rounded-xl p-6 border-2 border-red-200 mb-6">
+              <h3 class="text-lg font-semibold text-red-900 mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                Está PROHIBIDO:
+              </h3>
+              <ul class="space-y-2 text-gray-800">
+                <li class="flex items-start gap-2">
+                  <span class="text-red-600">✗</span>
+                  <span>Utilizar nuestros servicios con fines ilegales o fraudulentos.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-600">✗</span>
+                  <span>Compartir o revender el acceso a nuestros servicios sin autorización.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-600">✗</span>
+                  <span>Intentar vulnerar la seguridad de nuestros sistemas.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-600">✗</span>
+                  <span>Extraer datos de forma automatizada o masiva (scraping).</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-red-600">✗</span>
+                  <span>Reproducir, distribuir o modificar nuestro contenido sin autorización.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="bg-green-50 rounded-xl p-6 border-2 border-green-200">
+              <h3 class="text-lg font-semibold text-green-900 mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Uso Permitido:
+              </h3>
+              <ul class="space-y-2 text-gray-800">
+                <li class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Uso legítimo para mejorar tu organización.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Compartir resultados internamente con tu equipo.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-green-600">✓</span>
+                  <span>Implementar recomendaciones proporcionadas.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Section 4 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">4</span>
+              Propiedad Intelectual
+            </h2>
+            
+            <div class="bg-gradient-to-br from-blue-900 to-indigo-900 text-white rounded-xl p-8">
+              <p class="mb-4">
+                Todo el contenido de este sitio web, incluyendo pero no limitado a:
+              </p>
+              <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-blue-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Textos y artículos</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-blue-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Gráficos e imágenes</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-blue-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Logotipos y marcas</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-blue-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Software y código</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-blue-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Metodologías y herramientas</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-blue-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Material de capacitación</span>
+                </div>
+              </div>
+              <p class="text-blue-100">
+                Está protegido por derechos de autor y otras leyes de propiedad intelectual. Todos los derechos reservados © 2026 DOMIND.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 5 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.5s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">5</span>
+              Limitación de Responsabilidad
+            </h2>
+            
+            <div class="bg-yellow-50 rounded-xl p-6 border-2 border-yellow-300">
+              <p class="text-gray-800 mb-4">
+                DOMIND proporciona sus servicios "tal cual" y no garantiza:
+              </p>
+              <ul class="space-y-2 text-gray-700">
+                <li class="flex items-start gap-2">
+                  <span>•</span>
+                  <span>Resultados específicos o mejoras garantizadas en tu organización.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span>•</span>
+                  <span>Que el servicio será ininterrumpido o libre de errores.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span>•</span>
+                  <span>La exactitud absoluta de diagnósticos o recomendaciones.</span>
+                </li>
+              </ul>
+              <p class="text-gray-800 mt-4 font-semibold">
+                No seremos responsables por daños indirectos, incidentales o consecuentes derivados del uso de nuestros servicios.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 6 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.6s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">6</span>
+              Modificaciones
+            </h2>
+            
+            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <p class="text-gray-700">
+                Nos reservamos el derecho de modificar estos Términos y Condiciones en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en este sitio web. Tu uso continuado de nuestros servicios después de dichos cambios constituye tu aceptación de los nuevos términos.
+              </p>
+              <div class="mt-4 pt-4 border-t border-gray-300">
+                <p class="text-sm text-gray-600">
+                  <strong>Recomendación:</strong> Revisa periódicamente esta página para estar al tanto de cualquier modificación.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 7 -->
+          <div class="mb-12 animate-fade-in-up" style="animation-delay: 0.7s;">
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span class="flex items-center justify-center w-10 h-10 bg-blue-900 text-white rounded-lg text-lg font-bold">7</span>
+              Contacto
+            </h2>
+            
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl p-8">
+              <p class="mb-6">
+                Para preguntas sobre estos Términos y Condiciones, contáctanos en:
+              </p>
+              <div class="grid md:grid-cols-3 gap-6">
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2 text-blue-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="font-semibold">Email</span>
+                  </div>
+                  <a href="mailto:info@domind.com.mx" class="hover:text-blue-400 transition-colors">info@domind.com.mx</a>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2 text-blue-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    <span class="font-semibold">Teléfono</span>
+                  </div>
+                  <p>+52 (33) 3464 - 1200</p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2 text-blue-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span class="font-semibold">Ubicación</span>
+                  </div>
+                  <p class="text-sm">Constitución 2132 - 28017<br/>México</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, #ffffff 1px, transparent 1px),
+      linear-gradient(to bottom, #ffffff 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+</style>
