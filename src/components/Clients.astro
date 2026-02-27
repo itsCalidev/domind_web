@@ -32,26 +32,6 @@ const workshops = [
     duration: "3 días",
     participants: "20-30 personas",
   },
-  {
-    id: 4,
-    title: "Cultura de Seguridad",
-    description: "Implementación de protocolos y mejores prácticas",
-    image:
-      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80",
-    category: "Taller Práctico",
-    duration: "2 días",
-    participants: "15-25 personas",
-  },
-  {
-    id: 5,
-    title: "Gestión del Cambio Organizacional",
-    description: "Estrategias para transformación efectiva",
-    image:
-      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
-    category: "Consultoría",
-    duration: "4 sesiones",
-    participants: "Equipos directivos",
-  },
 ];
 ---
 
@@ -347,90 +327,11 @@ const workshops = [
     pointer-events: auto;
   }
 </style>
-<style>
-  /* ── Fill / Sweep buttons ── */
-  .btn-sweep {
-    position: relative;
-    overflow: hidden;
-    z-index: 0;
-    transition:
-      color 0.35s ease,
-      box-shadow 0.35s ease;
-  }
-  .btn-sweep::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-101%);
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: -1;
-    border-radius: inherit;
-  }
-  .btn-sweep:hover::before {
-    transform: translateX(0);
-  }
 
-  /* LinkedIn — fills with LinkedIn blue */
-  .btn-sweep-linkedin::before {
-    background-color: #0077b5;
-  }
-  .btn-sweep-linkedin:hover {
-    color: #ffffff;
-    border-color: #0077b5 !important;
-    box-shadow: 0 4px 18px rgba(0, 119, 181, 0.35);
-  }
-  .btn-sweep-linkedin:hover svg {
-    color: #ffffff;
-  }
-
-  /* Podcast — fills with warm slate */
-  .btn-sweep-podcast::before {
-    background-color: #374151;
-  }
-  .btn-sweep-podcast:hover {
-    color: #ffffff;
-    border-color: #374151 !important;
-    box-shadow: 0 4px 18px rgba(55, 65, 81, 0.25);
-  }
-  .btn-sweep-podcast:hover svg {
-    color: #ffffff;
-  }
-
-  /* Email — fills with indigo */
-  .btn-sweep-email::before {
-    background-color: #004a98;
-  }
-  .btn-sweep-email:hover {
-    color: #ffffff;
-    border-color: #004a98 !important;
-    box-shadow: 0 4px 18px rgba(0, 74, 152, 0.3);
-  }
-  .btn-sweep-email:hover svg {
-    color: #ffffff;
-  }
-
-  /* CTA — fills from right to left with a lighter shade */
-  .btn-sweep-cta::before {
-    transform: translateX(101%); /* enters from right */
-    background-color: #1e3a8a; /* blue-900 darker shade */
-  }
-  .btn-sweep-cta:hover::before {
-    transform: translateX(0);
-  }
-  .btn-sweep-cta:hover {
-    box-shadow: 0 8px 30px rgba(30, 58, 138, 0.45);
-    transform: scale(1.03);
-  }
-
-  /* Keep SVG color transition smooth */
-  .btn-sweep svg {
-    transition: color 0.35s ease;
-  }
-</style>
 <script>
   let workshopIndex = 0;
   let mobileWorkshopIndex = 0;
-  const totalWorkshops = 5;
+  const totalWorkshops = 3;
   const isDesktop = window.innerWidth >= 1024;
 
   const workshopCards = document.querySelectorAll(

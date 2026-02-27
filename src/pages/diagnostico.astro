@@ -2,11 +2,13 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import DiagnosticContainer from "../components/diagnostic/DiagnosticContainer";
+import WhatsappButton from "../components/WhatsappButton.astro";
 ---
 
 <Layout title="DOMIND | Diagnóstico">
   <Navbar />
   <main class="pt-20 min-h-screen bg-gray-50">
     <DiagnosticContainer client:load />
+    <WhatsappButton />
   </main>
 </Layout>
