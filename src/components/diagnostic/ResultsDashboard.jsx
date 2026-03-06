@@ -48,7 +48,12 @@ function SectionTitle({ children, style }) {
  *   onReset    – callback to restart the diagnostic
  */
 // 1. Recibimos la prop "answers" aquí arriba
-export default function ResultsDashboard({ totalScore, dimScores, onReset, evaluationId }) {
+export default function ResultsDashboard({
+  totalScore,
+  dimScores,
+  onReset,
+  evaluationId,
+}) {
   const profile = getProfile(totalScore);
   const alerts = getDynamicAlerts(dimScores);
   const actionPlan = getActionPlan(totalScore);
@@ -59,24 +64,30 @@ export default function ResultsDashboard({ totalScore, dimScores, onReset, evalu
 
   const handleDownloadPDF = async () => {
     setIsDownloadingPdf(true);
-    console.log("Obteniendo el PDF...");
-    
-    try {
-const res = await fetch(`http://localhost:3000/reports/evaluation/${evaluationId}/pdf`);
 
-      if (!res.ok) throw new Error('Error al generar el PDF');
+    try {
+      const API_URL = import.meta.env.PUBLIC_API_URL;
+
+      const res = await fetch(
+        // Desarrollo
+        // `http://localhost:3000/reports/evaluation/${evaluationId}/pdf`,
+
+        // Producción
+        `${API_URL}/reports/evaluation/${evaluationId}/pdf`,
+      );
+
+      if (!res.ok) throw new Error("Error al generar el PDF");
 
       // 4. Recibimos el archivo binario y forzamos la descarga en el navegador
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a"); 
-      a.href = url; 
-      a.download = "Diagnostico-Organizacional.pdf"; 
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Diagnostico-Organizacional-${evaluationId}.pdf`;
       a.click();
-      
+
       // Limpieza de la URL temporal
       URL.revokeObjectURL(url);
-
     } catch (error) {
       console.error("Hubo un problema descargando el PDF:", error);
       alert("Hubo un problema al generar el reporte. Intenta de nuevo.");
@@ -283,7 +294,7 @@ const res = await fetch(`http://localhost:3000/reports/evaluation/${evaluationId
               ))}
             </div>
 
- {/* ─────────────────────────────────────────────── */}
+            {/* ─────────────────────────────────────────────── */}
             <SectionTitle>Acciones Recomendadas</SectionTitle>
             {actionPlan.slice(0, 3).map((action, i) => (
               <div
@@ -328,8 +339,7 @@ const res = await fetch(`http://localhost:3000/reports/evaluation/${evaluationId
             >
               +{actionPlan.length - 3} más en el PDF completo...
             </p>
- {/* ─────────────────────────────────────────────── */}
-
+            {/* ─────────────────────────────────────────────── */}
           </div>
         </div>
 

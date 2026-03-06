@@ -1,5 +1,5 @@
 import { useState } from "react";
-import QuizForm         from "./QuizForm";
+import QuizForm from "./QuizForm";
 import ResultsDashboard from "./ResultsDashboard";
 import { FONT_IMPORT, NAVBAR_OFFSET } from "./utils/diagnosticData";
 
@@ -44,8 +44,19 @@ function IdleScreen({ onStart }) {
               boxShadow: "0 8px 24px rgba(30,64,175,0.35)",
             }}
           >
-            <svg width="36" height="36" fill="none" stroke="white" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+            <svg
+              width="36"
+              height="36"
+              fill="none"
+              stroke="white"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+              />
             </svg>
           </div>
 
@@ -61,9 +72,17 @@ function IdleScreen({ onStart }) {
             Diagnóstico Estratégico Organizacional
           </h1>
 
-          <p style={{ color: "#64748b", fontSize: 16, marginBottom: 36, lineHeight: 1.6 }}>
-            Evalúa el clima laboral, liderazgo y condiciones de tu equipo. Recibe un análisis
-            detallado con gráficos, matriz de riesgo y plan de acción personalizado
+          <p
+            style={{
+              color: "#64748b",
+              fontSize: 16,
+              marginBottom: 36,
+              lineHeight: 1.6,
+            }}
+          >
+            Evalúa el clima laboral, liderazgo y condiciones de tu equipo.
+            Recibe un análisis detallado con gráficos, matriz de riesgo y plan
+            de acción personalizado
           </p>
 
           {/* Features list */}
@@ -77,14 +96,33 @@ function IdleScreen({ onStart }) {
             }}
           >
             {[
-              { icon: "📊", title: "15 preguntas rápidas",       sub: "Evaluación completa en menos de 5 minutos" },
-              { icon: "🎯", title: "Análisis por dimensiones",   sub: "Velocímetro, semáforos y matriz de riesgo en vivo" },
-              { icon: "📄", title: "Reporte PDF descargable",    sub: "Plan de 90 días con métricas de seguimiento" },
+              {
+                icon: "📊",
+                title: "15 preguntas rápidas",
+                sub: "Evaluación completa en menos de 5 minutos",
+              },
+              {
+                icon: "🎯",
+                title: "Análisis por dimensiones",
+                sub: "Velocímetro, semáforos y matriz de riesgo en vivo",
+              },
+              {
+                icon: "📄",
+                title: "Reporte PDF descargable",
+                sub: "Plan de 90 días con métricas de seguimiento",
+              },
             ].map((f) => (
-              <div key={f.title} style={{ display: "flex", gap: 14, alignItems: "center" }}>
+              <div
+                key={f.title}
+                style={{ display: "flex", gap: 14, alignItems: "center" }}
+              >
                 <span style={{ fontSize: 24 }}>{f.icon}</span>
                 <div>
-                  <div style={{ fontWeight: 700, color: "#0f172a", fontSize: 14 }}>{f.title}</div>
+                  <div
+                    style={{ fontWeight: 700, color: "#0f172a", fontSize: 14 }}
+                  >
+                    {f.title}
+                  </div>
                   <div style={{ color: "#64748b", fontSize: 13 }}>{f.sub}</div>
                 </div>
               </div>
@@ -109,11 +147,13 @@ function IdleScreen({ onStart }) {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.02)";
-              e.currentTarget.style.boxShadow = "0 12px 40px rgba(30,64,175,0.6)";
+              e.currentTarget.style.boxShadow =
+                "0 12px 40px rgba(30,64,175,0.6)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(30,64,175,0.45)";
+              e.currentTarget.style.boxShadow =
+                "0 8px 32px rgba(30,64,175,0.45)";
             }}
           >
             Comenzar Diagnóstico Gratuito →
@@ -196,29 +236,36 @@ function LoadingScreen() {
  * Top-level state machine: idle → answering → loading → result_ready
  */
 export default function DiagnosticContainer() {
-  const [state,      setState]      = useState("idle");
+  const [state, setState] = useState("idle");
   const [totalScore, setTotalScore] = useState(0);
-  const [dimScores,  setDimScores]  = useState([]);
+  const [dimScores, setDimScores] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [evaluationId, setEvaluationId] = useState(null);
 
   const handleStart = () => setState("answering");
 
-const handleQuizComplete = async (score, dims, finalAnswers) => {
+  const handleQuizComplete = async (score, dims, finalAnswers) => {
     setTotalScore(score);
     setDimScores(dims);
     setAnswers(finalAnswers);
-    setState("loading"); 
+    setState("loading");
 
     try {
-      const response = await fetch('http://localhost:3000/evaluations/public', {
+      const API_URL = import.meta.env.PUBLIC_API_URL;
+      // Desarrollo
+      //const response = await fetch('http://localhost:3000/evaluations/public', {
+
+      //Producción
+// 2. Armamos la ruta dinámica
+      const response = await fetch(`${API_URL}/evaluations/public`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ answers: finalAnswers })
       });
+      
       const data = await response.json();
       if (data.evaluationId) {
-        setEvaluationId(data.evaluationId); 
+        setEvaluationId(data.evaluationId);
       }
     } catch (e) {
       console.error("Error silencioso al guardar datos", e);
@@ -234,9 +281,10 @@ const handleQuizComplete = async (score, dims, finalAnswers) => {
     setAnswers([]);
   };
 
-  if (state === "idle")         return <IdleScreen onStart={handleStart} />;
-  if (state === "answering")    return <QuizForm onComplete={handleQuizComplete} />;
-  if (state === "loading")      return <LoadingScreen />;
+  if (state === "idle") return <IdleScreen onStart={handleStart} />;
+  if (state === "answering")
+    return <QuizForm onComplete={handleQuizComplete} />;
+  if (state === "loading") return <LoadingScreen />;
   if (state === "result_ready") {
     return (
       <ResultsDashboard
