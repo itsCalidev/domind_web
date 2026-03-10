@@ -78,56 +78,70 @@ export function computeScores(answers) {
 }
 
 // ─── PROFILE ─────────────────────────────────────────────────────────────────
+// Score range: 15–75  |  4 climate levels as defined by the psychologist
 
 export function getProfile(score) {
+  // 15–30 · Clima Crítico
   if (score <= 30)
     return {
-      label: "Liderazgo Inicial",
+      label: "Clima Crítico",
       color: "#ef4444",
       bg: "#fef2f2",
       border: "#fca5a5",
       riskX: 1,
       riskY: 1,
+      interventionPriority: "ALTA",
+      interventionWeeks: 6,
       description:
-        "Clima de incertidumbre. Comunicación fragmentada, recursos limitados. El equipo opera en modo reactivo.",
+        "Ambiente laboral deteriorado, presencia de conflictos, baja satisfacción y riesgos importantes para el desempeño y la estabilidad del equipo.",
     };
-  if (score <= 50)
+  // 30–45 · Clima Deteriorado
+  if (score <= 45)
     return {
-      label: "Liderazgo en Formación",
+      label: "Clima Deteriorado",
       color: "#f97316",
       bg: "#fff7ed",
       border: "#fdba74",
       riskX: 1,
       riskY: 0,
+      interventionPriority: "ALTA",
+      interventionWeeks: 6,
       description:
-        "Colaboración parcial. Confían en el líder pero falta voz colectiva. Algunos recursos carecen.",
+        "Problemas relevantes en liderazgo, comunicación o coordinación que afectan la motivación y el funcionamiento del equipo.",
     };
-  if (score <= 65)
+  // 45–60 · Clima Inestable
+  if (score <= 60)
     return {
-      label: "Liderazgo Efectivo",
-      color: "#22c55e",
-      bg: "#f0fdf4",
-      border: "#86efac",
+      label: "Clima Inestable",
+      color: "#eab308",
+      bg: "#fefce8",
+      border: "#fde68a",
       riskX: 0,
       riskY: 1,
+      interventionPriority: "MEDIA",
+      interventionWeeks: 12,
       description:
-        "Clima colaborativo con alta confianza y apoyo mutuo. Recursos adecuados con oportunidad de mejora.",
+        "Condiciones mixtas. Algunas áreas funcionan adecuadamente, pero existen tensiones o factores que pueden afectar el desempeño si no se atienden.",
     };
+  // 60–75 · Clima Favorable
   return {
-    label: "Liderazgo Ejemplar",
-    color: "#3b82f6",
-    bg: "#eff6ff",
-    border: "#93c5fd",
+    label: "Clima Favorable",
+    color: "#22c55e",
+    bg: "#f0fdf4",
+    border: "#86efac",
     riskX: 0,
     riskY: 0,
+    interventionPriority: "BAJA",
+    interventionWeeks: 24,
     description:
-      "Equipo autónomo y comprometido. Comunicación transparente, empoderamiento real, condiciones óptimas.",
+      "Ambiente laboral positivo, con liderazgo funcional, buena colaboración y condiciones favorables para el desempeño.",
   };
 }
 
 // ─── ACTION PLAN ─────────────────────────────────────────────────────────────
 
 export function getActionPlan(score) {
+  // Clima Crítico (15–30)
   if (score <= 30)
     return [
       "Definir reglas claras de comunicación y colaboración",
@@ -136,7 +150,8 @@ export function getActionPlan(score) {
       "Clarificar objetivos y responsabilidades del equipo",
       "Implementar sistema de feedback anónimo inmediato",
     ];
-  if (score <= 50)
+  // Clima Deteriorado (30–45)
+  if (score <= 45)
     return [
       "Facilitar taller de resolución de conflictos",
       "Establecer sesiones de feedback grupal estructurado",
@@ -144,7 +159,8 @@ export function getActionPlan(score) {
       "Definir roles y responsabilidades con mayor claridad",
       "Crear ruta de desarrollo profesional visible",
     ];
-  if (score <= 65)
+  // Clima Inestable (45–60)
+  if (score <= 60)
     return [
       "Organizar sesiones de brainstorming para innovación",
       "Implementar programa de mentoría cruzada",
@@ -152,6 +168,7 @@ export function getActionPlan(score) {
       "Revisar necesidades de capacitación avanzada",
       "Reforzar alineación con estrategia organizacional",
     ];
+  // Clima Favorable (60–75)
   return [
     "Implementar ciclos de mejora continua",
     "Rotar liderazgo en proyectos específicos",

@@ -27,27 +27,35 @@
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Left Content -->
       <div class="text-center lg:text-left space-y-8 z-10">
-        <!-- Main Heading with fade-in animation -->
-        <h1
-          class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight animate-fade-in-up"
-        >
-          De Problemas a <span class="text-blue-900 relative inline-block">
-            Soluciones
-            <svg
-              class="absolute -bottom-2 left-0 w-full"
-              height="12"
-              viewBox="0 0 200 12"
-              fill="none"
-            >
-              <path
-                d="M2 10C50 2, 150 2, 198 10"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                class="text-blue-900/40"></path>
-            </svg>
-          </span>
-        </h1>
+<h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight animate-fade-in-up">
+  De la <span class="text-gray-400 font-light">Fragmentación</span>
+  <br />
+  a la <span class="text-blue-900 relative inline-block">
+    Transformación
+    <svg
+      class="absolute -bottom-2 left-0 w-full overflow-visible"
+      height="12"
+      viewBox="0 0 200 12"
+      fill="none"
+    >
+      <path
+        d="M2 10C50 2, 150 2, 198 10"
+        stroke="url(#gradient)"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-dasharray="220"
+        stroke-dashoffset="220"
+        class="animate-draw-line"
+      />
+      <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.3" />
+          <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.8" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </span>
+</h1>
 
         <!-- Subtitle -->
         <p
@@ -378,7 +386,12 @@
       linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
     background-size: 40px 40px;
   }
-
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+.animate-draw-line {
+  animation: draw-line 0.8s ease-out 0.6s forwards;
+}
   /* Blob Animation */
   @keyframes blob {
     0%,

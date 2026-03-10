@@ -97,25 +97,26 @@ export default function GaugeChart({ score, min = 15, max = 75 }) {
           {score}
           <span style={{ fontSize: 24, color: "#9ca3af", fontWeight: 600 }}>/75</span>
         </div>
+        {/* "52 / 75 — Clima Inestable" pill */}
         <div
           style={{
             marginTop: 8,
             display: "inline-block",
-            fontSize: 12,
+            fontSize: 11,
             fontWeight: 700,
-            letterSpacing: "0.12em",
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "4px 14px",
+            padding: "5px 14px",
             borderRadius: 99,
             color: profile.color,
             background: profile.bg,
             border: `1px solid ${profile.border}`,
           }}
         >
-          {profile.label}
+          {score} / 75 — {profile.label}
         </div>
-        <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 600, marginTop: 4 }}>
-          Nivel General
+        <div style={{ fontSize: 10, color: "#6b7280", fontWeight: 600, marginTop: 5, letterSpacing: "0.06em", textTransform: "uppercase" }}>
+          Índice de Clima Organizacional
         </div>
       </div>
     </div>
