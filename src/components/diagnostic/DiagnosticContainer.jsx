@@ -1,7 +1,7 @@
 import { useState } from "react";
 import QuizForm from "./QuizForm";
 import ResultsDashboard from "./ResultsDashboard";
-import { FONT_IMPORT, NAVBAR_OFFSET } from "./utils/diagnosticData";
+import { NAVBAR_OFFSET } from "./utils/diagnosticData";
 
 // ─── SANITIZATION HELPERS ────────────────────────────────────────────────────
 // Basic client-side sanitization. Real validation/sanitization MUST also
@@ -181,7 +181,6 @@ function ContactScreen({ onSubmit }) {
       }}
     >
       <style>{`
-        ${FONT_IMPORT}
         @keyframes slideUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
       `}</style>
@@ -488,7 +487,6 @@ function IdleScreen({ onStart }) {
         fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
       }}
     >
-      <style>{FONT_IMPORT}</style>
       <div style={{ maxWidth: 560, width: "100%" }}>
         <div
           style={{
@@ -757,10 +755,9 @@ export default function DiagnosticContainer() {
     setTotalScore(score);
     setDimScores(dims);
     setAnswers(finalAnswers);
-    setState("collecting_info"); // Pasa directo a la pantalla del formulario
+    setState("collecting_info");
   };
 
-  // 2. Cuando llena sus datos, ¡Aquí hacemos la magia con NestJS!
   const handleContactSubmit = async (info) => {
     setContactInfo(info);
     setState("loading"); // Mostramos la pantalla de "Calculando..."
@@ -780,16 +777,23 @@ export default function DiagnosticContainer() {
       });
 
       const clientData = await clientRes.json();
-      const clientId = clientData.clientId; // Atrapamos el ID del cliente
+      const clientId = clientData.clientId;
 
       // PASO B: Guardar la Evaluación vinculada a ese Cliente
       if (clientId) {
+        const formattedAnswers = answers.map((valor, index) => ({
+          questionId: index + 1,
+          score: valor,
+        }));
+
         const evalRes = await fetch(`${API_URL}/evaluations/public`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            answers: answers,
-            clientId: clientId, // <--- ¡Le mandamos el ID del cliente al backend!
+            surveyTemplateId: 1,
+            totalScore: totalScore,
+            clientId: clientId,
+            answers: formattedAnswers,
           }),
         });
 
@@ -811,7 +815,7 @@ export default function DiagnosticContainer() {
     setDimScores([]);
     setContactInfo(null);
     setAnswers([]);
-    setEvaluationId(null); // Importante limpiar esto también
+    setEvaluationId(null);
   };
 
   if (state === "idle") return <IdleScreen onStart={handleStart} />;
