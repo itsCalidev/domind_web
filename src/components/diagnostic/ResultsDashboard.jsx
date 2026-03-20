@@ -155,15 +155,112 @@ export default function ResultsDashboard({
       >
         <style>{`
           ${FONT_IMPORT}
+
           @keyframes fadeUp {
             from { opacity: 0; transform: translateY(16px); }
             to   { opacity: 1; transform: translateY(0); }
           }
           @keyframes spin { to { transform: rotate(360deg); } }
+
+          /* ── Base card ───────────────────────────────────────── */
           .r-card {
-            background  : rgba(255,255,255,0.97);
+            background   : rgba(255,255,255,0.97);
             border-radius: 20px;
-            box-shadow  : 0 4px 32px rgba(0,0,0,0.18);
+            box-shadow   : 0 4px 32px rgba(0,0,0,0.18);
+          }
+
+          /* ── Responsive grids ────────────────────────────────── */
+
+          /* ROW 1 — Gauge / Risk / Stats: 3 cols → 1 col on mobile */
+          .r-grid-3 {
+            display              : grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap                  : 16px;
+            margin-bottom        : 16px;
+            animation            : fadeUp 0.5s ease 0.1s both;
+          }
+
+          /* ROW 2 — Dimension bars: 2 cols → 1 col on mobile */
+          .r-grid-dims {
+            display              : grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap                  : 4px 32px;
+          }
+
+          /* ROW 3 — Action plan: auto-fit, collapses gracefully */
+          .r-grid-actions {
+            display              : grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap                  : 12px;
+          }
+
+          /* Stats 2×2 tile grid inside the stats card */
+          .r-grid-stats {
+            display              : grid;
+            grid-template-columns: 1fr 1fr;
+            gap                  : 10px;
+          }
+
+          /* CTA button row: row on desktop, column on mobile */
+          .r-cta-buttons {
+            display        : flex;
+            gap            : 14px;
+            justify-content: center;
+            flex-wrap      : wrap;
+          }
+
+          /* Dashboard header inner wrapper */
+          .r-dash-header {
+            display        : flex;
+            justify-content: space-between;
+            align-items    : center;
+            flex-wrap      : wrap;
+            gap            : 16px;
+          }
+
+          /* ── Tablet (≤ 860px) ────────────────────────────────── */
+          @media (max-width: 860px) {
+            .r-grid-3 {
+              grid-template-columns: 1fr 1fr;
+            }
+            /* Third card (stats) spans full width on tablet */
+            .r-grid-3 > *:last-child {
+              grid-column: 1 / -1;
+            }
+            .r-grid-stats {
+              grid-template-columns: repeat(4, 1fr);
+            }
+          }
+
+          /* ── Mobile (≤ 580px) ────────────────────────────────── */
+          @media (max-width: 580px) {
+            .r-grid-3 {
+              grid-template-columns: 1fr;
+            }
+            .r-grid-3 > *:last-child {
+              grid-column: auto;
+            }
+            .r-grid-stats {
+              grid-template-columns: 1fr 1fr;
+            }
+            .r-grid-dims {
+              grid-template-columns: 1fr;
+              gap: 4px 0;
+            }
+            .r-grid-actions {
+              grid-template-columns: 1fr;
+            }
+            .r-cta-buttons {
+              flex-direction: column;
+              align-items   : stretch;
+            }
+            .r-cta-buttons > * {
+              justify-content: center;
+            }
+            .r-dash-header {
+              flex-direction : column;
+              align-items    : flex-start;
+            }
           }
         `}</style>
 
@@ -185,17 +282,13 @@ export default function ResultsDashboard({
             style={{
               background   : "linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%)",
               borderRadius : 20,
-              padding      : "28px 32px",
+              padding      : "24px 28px",
               marginBottom : 20,
-              display      : "flex",
-              justifyContent: "space-between",
-              alignItems   : "center",
-              flexWrap     : "wrap",
-              gap          : 16,
               boxShadow    : "0 8px 32px rgba(30,64,175,0.4)",
               animation    : "fadeUp 0.5s ease both",
             }}
           >
+            <div className="r-dash-header">
             <div>
               <div style={{ color: "#93c5fd", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 6 }}>
                 Diagnóstico Estratégico
@@ -226,22 +319,16 @@ export default function ResultsDashboard({
                 fontSize       : 13,
                 cursor         : "pointer",
                 backdropFilter : "blur(8px)",
+                whiteSpace     : "nowrap",
               }}
             >
               ↺ Nuevo Diagnóstico
             </button>
-          </div>
+            </div>{/* end r-dash-header */}
+          </div>{/* end dashboard header card */}
 
           {/* ── ROW 1: GAUGE · RISK MATRIX · STATS ────────────────────────── */}
-          <div
-            style={{
-              display              : "grid",
-              gridTemplateColumns  : "repeat(3, 1fr)",
-              gap                  : 16,
-              marginBottom         : 16,
-              animation            : "fadeUp 0.5s ease 0.1s both",
-            }}
-          >
+          <div className="r-grid-3">
             {/* — Gauge — */}
             <div className="r-card" style={{ padding: "28px 20px" }}>
               <SectionTitle>Índice de Clima</SectionTitle>
@@ -269,7 +356,7 @@ export default function ResultsDashboard({
                 <div style={{ marginTop: 6, height: 1, background: "#f1f5f9" }} />
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+              <div className="r-grid-stats">
                 <StatTile
                   icon={<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>}
                   iconBg="#eff6ff" title="Puntaje Total"
@@ -304,7 +391,7 @@ export default function ResultsDashboard({
           </div>
 
           {/* ── ROW 2: DIMENSION BARS ──────────────────────────────────────── */}
-          <div className="r-card" style={{ padding: "28px 32px", marginBottom: 16, animation: "fadeUp 0.5s ease 0.2s both" }}>
+          <div className="r-card" style={{ padding: "24px 24px", marginBottom: 16, animation: "fadeUp 0.5s ease 0.2s both" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, flexWrap: "wrap", gap: 12 }}>
               <SectionTitle style={{ margin: 0 }}>Análisis por Dimensión</SectionTitle>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -321,7 +408,7 @@ export default function ResultsDashboard({
                 ))}
               </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "4px 32px" }}>
+            <div className="r-grid-dims">
               {dimScores.map((dim, i) => (
                 <DimensionBar key={dim.id} dim={dim} delay={i * 150} />
               ))}
@@ -329,9 +416,9 @@ export default function ResultsDashboard({
           </div>
 
           {/* ── ROW 3: ACTION PLAN ─────────────────────────────────────────── */}
-          <div className="r-card" style={{ padding: "28px 32px", marginBottom: 16, animation: "fadeUp 0.5s ease 0.3s both" }}>
+          <div className="r-card" style={{ padding: "24px 24px", marginBottom: 16, animation: "fadeUp 0.5s ease 0.3s both" }}>
             <SectionTitle>Plan de Acción Recomendado</SectionTitle>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+            <div className="r-grid-actions">
               {actionPlan.map((action, i) => (
                 <div
                   key={i}
@@ -355,8 +442,17 @@ export default function ResultsDashboard({
           </div>
 
           {/* ── CTA / PDF SECTION ──────────────────────────────────────────── */}
+          {/*
+            data-html2canvas-ignore="true"
+            ─────────────────────────────
+            html2canvas skips this element natively — no hook code needed.
+            The section stays fully visible in the browser; it simply never
+            appears in the captured canvas (and therefore not in the PDF).
+            We also keep data-pdf-hide on the inner buttons as a belt-and-
+            suspenders fallback for any other capture method.
+          */}
           <div
-           data-html2canvas-ignore="true"
+            data-html2canvas-ignore="true"
             style={{
               background   : "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
               borderRadius : 20, padding: "40px 32px", textAlign: "center",
@@ -376,7 +472,7 @@ export default function ResultsDashboard({
             </p>
 
             {/* data-pdf-hide → the entire button row is excluded from the PDF */}
-            <div data-pdf-hide style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+            <div data-pdf-hide className="r-cta-buttons">
 
               {/* Primary — Download PDF */}
               <button
@@ -444,6 +540,8 @@ export default function ResultsDashboard({
               {/* Tertiary */}
               <a
                 href="/#workshops"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
                   display       : "inline-flex", alignItems: "center", gap: 8,
                   padding       : "16px 24px",

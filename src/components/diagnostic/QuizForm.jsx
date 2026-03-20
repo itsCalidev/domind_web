@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  QUESTIONS,
-  SCALE_OPTIONS,
-  computeScores,
-  FONT_IMPORT,
-  NAVBAR_OFFSET,
-} from "./utils/diagnosticData";
+import { QUESTIONS, SCALE_OPTIONS, computeScores, FONT_IMPORT, NAVBAR_OFFSET } from "./utils/diagnosticData";
 
 /**
  * QuizForm
@@ -35,17 +29,8 @@ export default function QuizForm({ onComplete }) {
         alert("Por favor responde todas las preguntas.");
         return;
       }
-
       const { totalScore, dimScores } = computeScores(answers);
-
-      // NUEVO: Convertimos el objeto {0: 5, 1: 4...} a un arreglo ordenado [5, 4...]
-      const answersArray = Array.from(
-        { length: QUESTIONS.length },
-        (_, i) => answers[i],
-      );
-
-      // NUEVO: Pasamos el tercer parámetro (answersArray)
-      onComplete(totalScore, dimScores, answersArray);
+      onComplete(totalScore, dimScores);
     } else {
       setCurrent((prev) => prev + 1);
     }
@@ -70,18 +55,20 @@ export default function QuizForm({ onComplete }) {
         fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
       }}
     >
-      <style>{FONT_IMPORT}</style>
+      <style>{`
+        ${FONT_IMPORT}
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 480px) {
+          .quiz-card    { padding: 28px 18px !important; border-radius: 18px !important; }
+          .quiz-option  { padding: 12px 14px !important; }
+        }
+      `}</style>
 
       <div style={{ maxWidth: 640, width: "100%" }}>
+
         {/* Progress bar */}
         <div style={{ marginBottom: 24 }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: 8,
-            }}
-          >
+          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
             <span style={{ color: "#94a3b8", fontSize: 13, fontWeight: 600 }}>
               Pregunta {current + 1} de {QUESTIONS.length}
             </span>
@@ -111,6 +98,7 @@ export default function QuizForm({ onComplete }) {
 
         {/* Question card */}
         <div
+          className="quiz-card"
           style={{
             background: "rgba(255,255,255,0.97)",
             borderRadius: 24,
@@ -151,14 +139,7 @@ export default function QuizForm({ onComplete }) {
           </h2>
 
           {/* Answer options */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 10,
-              marginBottom: 24,
-            }}
-          >
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
             {SCALE_OPTIONS.map((opt) => {
               const selected = answers[current] === opt.value;
               return (
@@ -178,12 +159,10 @@ export default function QuizForm({ onComplete }) {
                     transition: "border-color 0.15s, background 0.15s",
                   }}
                   onMouseEnter={(e) => {
-                    if (!selected)
-                      e.currentTarget.style.borderColor = "#93c5fd";
+                    if (!selected) e.currentTarget.style.borderColor = "#93c5fd";
                   }}
                   onMouseLeave={(e) => {
-                    if (!selected)
-                      e.currentTarget.style.borderColor = "#e2e8f0";
+                    if (!selected) e.currentTarget.style.borderColor = "#e2e8f0";
                   }}
                 >
                   <span
@@ -211,12 +190,7 @@ export default function QuizForm({ onComplete }) {
                     }}
                   >
                     {selected && (
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 20 20"
-                        fill="white"
-                      >
+                      <svg width="12" height="12" viewBox="0 0 20 20" fill="white">
                         <path
                           fillRule="evenodd"
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -264,7 +238,7 @@ export default function QuizForm({ onComplete }) {
                 fontSize: 14,
               }}
             >
-              Anterior
+              ← Anterior
             </button>
 
             <button
@@ -282,28 +256,16 @@ export default function QuizForm({ onComplete }) {
                 boxShadow: "0 4px 16px rgba(30,64,175,0.4)",
                 transition: "transform 0.15s",
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.transform = "scale(1.02)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.transform = "scale(1)")
-              }
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
-              {isLast ? "Ver Resultados" : "Siguiente"}
+              {isLast ? "Ver Resultados →" : "Siguiente →"}
             </button>
           </div>
 
           {/* Counter */}
-          <p
-            style={{
-              textAlign: "center",
-              fontSize: 12,
-              color: "#94a3b8",
-              marginTop: 16,
-            }}
-          >
-            {Object.keys(answers).length} de {QUESTIONS.length} preguntas
-            respondidas
+          <p style={{ textAlign: "center", fontSize: 12, color: "#94a3b8", marginTop: 16 }}>
+            {Object.keys(answers).length} de {QUESTIONS.length} preguntas respondidas
           </p>
         </div>
       </div>
