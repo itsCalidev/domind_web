@@ -31,6 +31,16 @@ const workshops = [
     duration: "1 día",
     participants: "10-15 personas",
     pdf: "/workshops/Recalibración_Estratégica_DOMIND.pdf"
+  },
+    {
+    id: 4,
+    title: "Prioridad Cero",
+    description: "Activación de Cultura de Seguridad",
+    image: "/Prioridad_Cero_Safety_Activation.png",
+    category: "Workshop Estratégico",
+    duration: "3 meses",
+    participants: "10-15 personas",
+    pdf: "/workshops/Prioridad_Cero_Safety_Activation.pdf"
   }
 ];
 ---
@@ -338,7 +348,6 @@ const workshops = [
 <script>
   let workshopIndex = 0;
   let mobileWorkshopIndex = 0;
-  const totalWorkshops = 3;
   const isDesktop = window.innerWidth >= 1024;
 
   const workshopCards = document.querySelectorAll(
@@ -349,6 +358,7 @@ const workshops = [
   const nextBtn = document.getElementById("workshop-next");
   const mobileTrack = document.getElementById("mobile-workshop-track");
   const mobileCarousel = document.getElementById("mobile-workshop-carousel");
+  const totalWorkshops = workshopCards.length; // ← después de workshopCards
 
   function updateWorkshopCarousel() {
     workshopCards.forEach((card, index) => {
