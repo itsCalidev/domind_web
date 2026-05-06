@@ -19,7 +19,7 @@ export default function QuizForm({ onComplete }) {
     setShowError(false);
   };
 
-  const handleNext = () => {
+const handleNext = () => {
     if (answers[current] === undefined) {
       setShowError(true);
       return;
@@ -30,7 +30,11 @@ export default function QuizForm({ onComplete }) {
         return;
       }
       const { totalScore, dimScores } = computeScores(answers);
-      onComplete(totalScore, dimScores);
+      
+      // Convertimos el objeto {0: 5, 1: 3} en un arreglo [5, 3] y lo enviamos
+      const misRespuestasArray = Object.values(answers);
+      onComplete(totalScore, dimScores, misRespuestasArray);
+      
     } else {
       setCurrent((prev) => prev + 1);
     }

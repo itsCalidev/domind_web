@@ -320,33 +320,54 @@ export default function DiagnosticContainer() {
     setState("collecting_info");
   };
 
-  const handleContactSubmit = async (info) => {
+const handleContactSubmit = async (info) => {
     setContactInfo(info);
     setState("loading");
 
     try {
       const API_URL = import.meta.env.PUBLIC_API_URL;
 
+      // 1. Guardar Cliente
       const clientRes  = await fetch(`${API_URL}/clients/public`, {
         method : "POST",
         headers: { "Content-Type": "application/json" },
         body   : JSON.stringify({ name: info.name, email: info.email, industry: info.industry }),
       });
       const clientData = await clientRes.json();
-      const clientId   = clientData.clientId;
+      
+      // Validar si el backend rechazó al cliente
+      if (!clientRes.ok) {
+        console.error("Error al guardar cliente:", clientData);
+        return; 
+      }
 
+      const clientId = clientData.clientId;
+
+      // 2. Guardar Evaluación
       if (clientId) {
-        const formattedAnswers = answers.map((valor, index) => ({ questionId: index + 1, score: valor }));
+        const formattedAnswers = (answers || []).map((valor, index) => ({ questionId: index + 1, score: valor }));
+        
+        // Armamos el payload y lo imprimimos para revisarlo
+        const payload = { surveyTemplateId: 1, totalScore, clientId, answers: formattedAnswers };
+        console.log("Enviando a NestJS:", payload);
+
         const evalRes  = await fetch(`${API_URL}/evaluations/public`, {
           method : "POST",
           headers: { "Content-Type": "application/json" },
-          body   : JSON.stringify({ surveyTemplateId: 1, totalScore, clientId, answers: formattedAnswers }),
+          body   : JSON.stringify(payload),
         });
+        
         const evalData = await evalRes.json();
-        if (evalData.evaluationId) setEvaluationId(evalData.evaluationId);
+
+        // AQUÍ ESTÁ LA MAGIA: Si NestJS rechaza (Ej. Error 400), lo veremos
+        if (!evalRes.ok) {
+          console.error("NestJS rechazó la evaluación. Motivo:", evalData);
+        } else if (evalData.evaluationId) {
+          setEvaluationId(evalData.evaluationId);
+        }
       }
     } catch (e) {
-      console.error("Error silencioso al guardar datos", e);
+      console.error("Error crítico de red (Servidor caído):", e);
     }
 
     setTimeout(() => setState("result_ready"), 1500);
