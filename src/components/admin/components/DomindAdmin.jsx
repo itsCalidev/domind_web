@@ -602,12 +602,23 @@ function DashboardView() {
 }
 
 // ─── SETTINGS VIEW ────────────────────────────────────────────────────────────
+// ─── SETTINGS VIEW ────────────────────────────────────────────────────────────
 function SettingsView() {
   const { user } = useAuth();
-  const isDueño   = user.role === "dueño";
+  
+  // Ajustado al rol "owner" que usaste en tu base de datos
+  const isDueño   = user.role === "owner";
   const isSistema = user.role === "sistema";
 
-  const [form,    setForm]    = useState({ name: isDueño ? "Administrador Domind" : "", email: isDueño ? user.email : "", newPassword: "", confirmPassword: "" });
+  // Pre-llenamos con la info real del usuario logueado.
+  // Si es "sistema", precargamos los datos del dueño por defecto.
+  const [form,    setForm]    = useState({ 
+    name: isDueño ? user.name : "José Luis", 
+    email: isDueño ? user.email : "joseluis@domind.com", 
+    newPassword: "", 
+    confirmPassword: "" 
+  });
+  
   const [errors,  setErrors]  = useState({});
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -628,14 +639,25 @@ function SettingsView() {
     return e;
   };
 
-const handleSave = async () => {
+  const handleSave = async () => {
     const e = validate();
     if (Object.keys(e).length > 0) { setErrors(e); return; }
     setLoading(true);
 
     try {
       const token = localStorage.getItem("domind_token");
-      const API_URL = import.meta.env.PUBLIC_API_URL;
+      const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:3000";
+
+      // 1. Armamos los datos base (sin contraseña)
+      const payload = {
+        name: form.name,
+        email: form.email,
+      };
+
+      // 2. SOLO agregamos la contraseña si el usuario escribió algo
+      if (form.newPassword.trim() !== "") {
+        payload.password = form.newPassword;
+      }
 
       const res = await fetch(`${API_URL}/users/profile/update`, {
         method: "PATCH",
@@ -643,14 +665,16 @@ const handleSave = async () => {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          password: form.newPassword
-        })
+        body: JSON.stringify(payload) // Enviamos el payload dinámico
       });
 
-      if (res.ok) setSuccess(true);
+      if (res.ok) {
+        setSuccess(true);
+        // Limpiamos los campos de contraseña por seguridad visual
+        setForm(prev => ({ ...prev, newPassword: "", confirmPassword: "" }));
+      } else {
+        throw new Error("Fallo al actualizar en el servidor");
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -673,7 +697,7 @@ const handleSave = async () => {
           </svg>
           <div>
             <p style={{ fontSize: 13, fontWeight: 600, color: "#92400e" }}>Modo de rescate activo</p>
-            <p style={{ fontSize: 12, color: "#a16207", marginTop: 2 }}>Cualquier cambio aquí actualizará directamente las credenciales del rol <strong>dueño</strong>.</p>
+            <p style={{ fontSize: 12, color: "#a16207", marginTop: 2 }}>Cualquier cambio aquí actualizará directamente las credenciales del rol <strong>owner</strong>.</p>
           </div>
         </div>
       )}
@@ -683,7 +707,7 @@ const handleSave = async () => {
         {isSistema && (
           <div style={{ marginBottom: 20, padding: "10px 14px", background: C.blue50, border: `1px solid ${C.blue100}`, borderRadius: 8, display: "flex", alignItems: "center", gap: 8 }}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C.blue900} strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-            <span style={{ fontSize: 12, fontWeight: 600, color: C.blue900 }}>Actualizando credenciales de: <strong>dueño</strong></span>
+            <span style={{ fontSize: 12, fontWeight: 600, color: C.blue900 }}>Actualizando credenciales de: <strong>owner</strong></span>
           </div>
         )}
 
@@ -726,7 +750,16 @@ const handleSave = async () => {
               ? <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ animation: "spin 0.8s linear infinite" }}><path strokeLinecap="round" d="M12 2a10 10 0 0 1 10 10"/></svg> Guardando...</>
               : <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg> Guardar Cambios</>}
           </Btn>
-          <Btn variant="secondary" onClick={() => { setForm({ name: isDueño ? "Administrador Domind" : "", email: isDueño ? user.email : "", newPassword: "", confirmPassword: "" }); setErrors({}); setSuccess(false); }}>
+          <Btn variant="secondary" onClick={() => { 
+            setForm({ 
+              name: isDueño ? user.name : "José Luis", 
+              email: isDueño ? user.email : "joseluis@domind.com", 
+              newPassword: "", 
+              confirmPassword: "" 
+            }); 
+            setErrors({}); 
+            setSuccess(false); 
+          }}>
             Cancelar
           </Btn>
         </div>
