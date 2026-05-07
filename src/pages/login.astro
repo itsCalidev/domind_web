@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/admin/components/header.astro";
+import DomindAdmin from "../components/admin/components/DomindAdmin";
+---
+
+<Layout title="Login">
+  <Header />
+<main class="min-h-screen pt-16">
+      <DomindAdmin client:load />
+  </main>
+</Layout>

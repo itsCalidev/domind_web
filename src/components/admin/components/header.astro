@@ -1,0 +1,118 @@
+---
+// Header.astro
+---
+
+<nav
+  id="navbar"
+  class="fixed top-0 left-0 z-50 w-full h-16"
+>
+  <div
+    id="navbar-content"
+class="bg-white/90 backdrop-blur-md px-6 py-3 transition-all duration-300"  
+>
+    <div class="flex justify-between items-center">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="/" class="block">
+          <img
+            src="/logo.png"
+            alt="DOMIND"
+            class="h-10 w-auto transition-all duration-300"
+            id="logo"
+          />
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+        <!-- Home -->
+        <a
+          href="/"
+          class="flex items-center gap-2 text-gray-700 hover:text-blue-900 font-medium transition-all duration-200 group"
+        >
+          <svg
+            class="w-5 h-5 transition-transform duration-200 group-hover:scale-110"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            ></path>
+          </svg>
+          <span>Home</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button
+          id="mobile-menu-btn"
+          class="p-2 text-gray-700 hover:text-blue-900 transition-colors"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="md:hidden hidden">
+    <div
+      class="bg-white/95 backdrop-blur-md shadow-xl border-b border-gray-200/50 py-4 px-6"
+    >
+      <div class="max-w-6xl mx-auto flex flex-col space-y-4">
+        <a
+          href="/"
+          class="flex items-center gap-3 text-gray-700 hover:text-blue-900 font-medium transition-colors py-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+            ></path>
+          </svg>
+          <span>Home</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+</nav>
+
+<script>
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileMenuBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("hidden");
+  });
+
+  mobileMenu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.add("hidden");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (mobileMenu && !mobileMenu.classList.contains("hidden")) {
+      const target = e.target as HTMLElement;
+      if (!mobileMenu.contains(target) && !mobileMenuBtn?.contains(target)) {
+        mobileMenu.classList.add("hidden");
+      }
+    }
+  });
+</script>
