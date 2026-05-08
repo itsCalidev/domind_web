@@ -1,4 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 // ─── DESIGN TOKENS ────────────────────────────────────────────────────────────
 const C = {
@@ -401,51 +404,53 @@ function TopBar({ activeView, onNav, user, onLogout }) {
   );
 }
 
+function getFileName(ext) {
+  const today = new Date().toISOString().split("T")[0];
+  return `Reporte_Domind_${today}.${ext}`;
+}
+
 // ─── DASHBOARD VIEW ───────────────────────────────────────────────────────────
 function DashboardView() {
   const [data, setData]       = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [search,  setSearch]  = useState("");
   const [sortKey, setSortKey] = useState("date");
   const [sortDir, setSortDir] = useState("desc");
   const [page,    setPage]    = useState(1);
   const PER_PAGE = 8;
 
-  // 1. Efecto para obtener datos cuando el componente se monta
   useEffect(() => {
     const fetchEvaluations = async () => {
       try {
-        const token = localStorage.getItem("domind_token");
+        const token   = localStorage.getItem("domind_token");
         const API_URL = import.meta.env.PUBLIC_API_URL;
 
         const res = await fetch(`${API_URL}/evaluations/admin/all`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (!res.ok) throw new Error("Error al obtener los datos");
-        
-        const result = await res.json();
-        setData(result);
+        setData(await res.json());
       } catch (err) {
         console.error("Fallo la conexión con la API:", err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchEvaluations();
   }, []);
 
+  // ── Datos derivados ──────────────────────────────────────────────────────────
   const filtered = data
-    .filter(r => {
+    .filter((r) => {
       const q = search.toLowerCase();
-      return !q || 
-        (r.name && r.name.toLowerCase().includes(q)) || 
-        (r.company && r.company.toLowerCase().includes(q)) || 
-        (r.email && r.email.toLowerCase().includes(q));
+      return (
+        !q ||
+        (r.name    && r.name.toLowerCase().includes(q))    ||
+        (r.company && r.company.toLowerCase().includes(q)) ||
+        (r.email   && r.email.toLowerCase().includes(q))
+      );
     })
     .sort((a, b) => {
       const m = sortDir === "asc" ? 1 : -1;
@@ -458,25 +463,193 @@ function DashboardView() {
   const paginated  = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   const toggleSort = (key) => {
-    if (sortKey === key) setSortDir(d => d === "asc" ? "desc" : "asc");
+    if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
     else { setSortKey(key); setSortDir("desc"); }
   };
 
-  const SortIcon = ({ k }) => {
-    if (sortKey !== k) return <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.3 }}><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg>;
-    return sortDir === "asc"
-      ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={C.blue700} strokeWidth="2.5"><path d="M12 19V5m-7 7 7-7 7 7"/></svg>
-      : <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={C.blue700} strokeWidth="2.5"><path d="M12 5v14m-7-7 7 7 7-7"/></svg>;
+  const avg  = data.length > 0 ? Math.round(data.reduce((s, r) => s + (r.score || 0), 0) / data.length) : 0;
+  const crit = data.filter((r) => (r.score || 0) < 30).length;
+  const fav  = data.filter((r) => (r.score || 0) >= 60).length;
+
+  // ── Columnas compartidas para ambos reportes ─────────────────────────────────
+  // Transformamos `filtered` en filas planas { Fecha, Nombre, … }
+  // UNA sola vez para reutilizar en Excel y PDF.
+  const buildRows = () =>
+    filtered.map((r) => ({
+      Fecha:           r.date !== "N/A" ? formatDate(r.date) : "N/A",
+      Nombre:          r.name    || "",
+      Empresa:         r.company || "",
+      Email:           r.email   || "",
+      Puntaje:         r.score   ?? 0,
+      "Nivel de Clima": r.level  || "",
+    }));
+
+  // ── Descarga Excel ────────────────────────────────────────────────────────────
+  const handleDownloadExcel = () => {
+    const rows = buildRows();
+
+    // Hoja a partir de un arreglo de objetos → encabezados automáticos
+    const worksheet  = XLSX.utils.json_to_sheet(rows);
+    const workbook   = XLSX.utils.book_new();
+
+    // Ancho de columnas (caracteres aprox.)
+    worksheet["!cols"] = [
+      { wch: 14 }, // Fecha
+      { wch: 24 }, // Nombre
+      { wch: 26 }, // Empresa
+      { wch: 30 }, // Email
+      { wch: 10 }, // Puntaje
+      { wch: 20 }, // Nivel de Clima
+    ];
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Resultados");
+    XLSX.writeFile(workbook, getFileName("xlsx"));
   };
 
-  const avg  = data.length > 0 ? Math.round(data.reduce((s, r) => s + (r.score || 0), 0) / data.length) : 0;
-  const crit = data.filter(r => (r.score || 0) < 30).length;
-  const fav  = data.filter(r => (r.score || 0) >= 60).length;
+  // ── Descarga PDF ──────────────────────────────────────────────────────────────
+  const handleDownloadPDF = () => {
+    const rows = buildRows();
+    const doc  = new jsPDF({ orientation: "landscape", unit: "pt", format: "letter" });
+
+    // ── Cabecera del documento ──────────────────────────────────────────────────
+    const pageW     = doc.internal.pageSize.getWidth();
+    const today     = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" });
+    const brandBlue = [30, 58, 138]; // #1E3A8A en RGB
+
+    // Banda superior
+    doc.setFillColor(...brandBlue);
+    doc.rect(0, 0, pageW, 48, "F");
+
+    // Logo / título
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.setTextColor(255, 255, 255);
+    doc.text("Domind", 36, 30);
+
+    // Subtítulo
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(200, 215, 255);
+    doc.text("Panel de Administración · Reporte de Diagnóstico", 36, 42);
+
+    // Fecha generación (derecha)
+    doc.setTextColor(200, 215, 255);
+    doc.text(`Generado: ${today}`, pageW - 36, 30, { align: "right" });
+    doc.text(`Total registros: ${rows.length}`, pageW - 36, 42, { align: "right" });
+
+    // Filtro activo (si aplica)
+    if (search.trim()) {
+      doc.setFontSize(8);
+      doc.setTextColor(255, 220, 100);
+      doc.text(`Filtro activo: "${search}"`, 36, 58);
+    }
+
+    // ── Tabla ───────────────────────────────────────────────────────────────────
+    autoTable(doc, {
+      startY: search.trim() ? 68 : 58,
+      head: [["Fecha", "Nombre", "Empresa", "Email", "Puntaje", "Nivel de Clima"]],
+      body: rows.map((r) => [
+        r.Fecha,
+        r.Nombre,
+        r.Empresa,
+        r.Email,
+        `${r.Puntaje}/75`,
+        r["Nivel de Clima"],
+      ]),
+
+      // Estilos generales
+      styles: {
+        font:      "helvetica",
+        fontSize:  9,
+        cellPadding: { top: 6, right: 10, bottom: 6, left: 10 },
+        textColor: [30, 41, 59],   // slate-800
+        lineColor: [226, 232, 240],
+        lineWidth: 0.5,
+      },
+
+      // Cabecera de tabla
+      headStyles: {
+        fillColor:  brandBlue,
+        textColor:  [255, 255, 255],
+        fontStyle:  "bold",
+        fontSize:   9,
+        halign:     "left",
+      },
+
+      // Filas alternadas (zebra)
+      alternateRowStyles: { fillColor: [248, 250, 252] }, // slate-50
+
+      // Ancho de columnas
+      columnStyles: {
+        0: { cellWidth: 70  }, // Fecha
+        1: { cellWidth: 110 }, // Nombre
+        2: { cellWidth: 120 }, // Empresa
+        3: { cellWidth: 150 }, // Email
+        4: { cellWidth: 55, halign: "center" }, // Puntaje
+        5: { cellWidth: 110 }, // Nivel de Clima
+      },
+
+      // Color semántico en la celda de Puntaje (columna índice 4)
+      didDrawCell(hookData) {
+        if (hookData.section !== "body" || hookData.column.index !== 4) return;
+
+        const raw   = rows[hookData.row.index]?.Puntaje ?? 0;
+        const color =
+          raw >= 60 ? [21, 128, 61]  :  // verde
+          raw >= 45 ? [202, 138, 4]  :  // ámbar
+          raw >= 30 ? [234, 88, 12]  :  // naranja
+                     [220, 38, 38];     // rojo
+
+        // Sobreescribimos el texto con el color semántico
+        const { x, y, width, height } = hookData.cell;
+        doc.setFillColor(hookData.row.index % 2 === 0 ? 255 : 248, hookData.row.index % 2 === 0 ? 255 : 250, hookData.row.index % 2 === 0 ? 255 : 252);
+        doc.rect(x, y, width, height, "F");
+        doc.setTextColor(...color);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(9);
+        doc.text(
+          hookData.cell.text.join(""),
+          x + width / 2,
+          y + height / 2 + 3,
+          { align: "center" }
+        );
+      },
+
+      // Footer con paginación
+      didDrawPage(pageData) {
+        const pageCount = doc.internal.getNumberOfPages();
+        const pageNum   = pageData.pageNumber;
+        const footerY   = doc.internal.pageSize.getHeight() - 16;
+
+        doc.setFontSize(8);
+        doc.setTextColor(148, 163, 184); // slate-400
+        doc.setFont("helvetica", "normal");
+        doc.text("Domind · Reporte confidencial de uso interno", 36, footerY);
+        doc.text(`Página ${pageNum} de ${pageCount}`, pageW - 36, footerY, { align: "right" });
+      },
+    });
+
+    doc.save(getFileName("pdf"));
+  };
+
+  // ── Render ───────────────────────────────────────────────────────────────────
+  const SortIcon = ({ k }) => {
+    if (sortKey !== k) return (
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.3 }}>
+        <path d="M7 15l5 5 5-5M7 9l5-5 5 5" />
+      </svg>
+    );
+    return sortDir === "asc"
+      ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={C.blue700} strokeWidth="2.5"><path d="M12 19V5m-7 7 7-7 7 7" /></svg>
+      : <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={C.blue700} strokeWidth="2.5"><path d="M12 5v14m-7-7 7 7 7-7" /></svg>;
+  };
 
   if (loading) {
     return (
       <div style={{ display: "flex", justifyContent: "center", padding: "100px", color: C.slate500 }}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ animation: "spin 1s linear infinite", marginRight: 10 }}><path strokeLinecap="round" d="M12 2a10 10 0 0 1 10 10"/></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ animation: "spin 1s linear infinite", marginRight: 10 }}>
+          <path strokeLinecap="round" d="M12 2a10 10 0 0 1 10 10" />
+        </svg>
         Cargando datos históricos...
       </div>
     );
@@ -484,40 +657,69 @@ function DashboardView() {
 
   return (
     <div className="fade-in" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      <SectionHeader title="Resultados de Diagnóstico" subtitle="Historial completo de evaluaciones organizacionales." />
+      <SectionHeader
+        title="Resultados de Diagnóstico"
+        subtitle="Historial completo de evaluaciones organizacionales."
+      />
 
-      {/* Stats row */}
+      {/* Stats */}
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-        <StatCard label="Total evaluaciones" value={data.length} sub="Todas las organizaciones" />
-        <StatCard label="Puntaje promedio"   value={`${avg}/75`}            sub="Media global" accent={C.blue900} />
-        <StatCard label="Clima Favorable"    value={fav}                    sub="Puntaje ≥ 60" accent="#15803d" />
-        <StatCard label="Clima Crítico"      value={crit}                   sub="Puntaje < 30" accent="#dc2626" />
+        <StatCard label="Total evaluaciones" value={data.length}  sub="Todas las organizaciones" />
+        <StatCard label="Puntaje promedio"   value={`${avg}/75`} sub="Media global" accent={C.blue900} />
+        <StatCard label="Clima Favorable"    value={fav}         sub="Puntaje ≥ 60" accent="#15803d" />
+        <StatCard label="Clima Crítico"      value={crit}        sub="Puntaje < 30" accent="#dc2626" />
       </div>
 
       {/* Table card */}
       <Card>
         {/* Action bar */}
         <div className="action-bar" style={{ padding: "18px 20px", borderBottom: `1px solid ${C.slate100}`, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+
           {/* Search */}
           <div style={{ position: "relative", flex: 1, minWidth: 200, maxWidth: 320 }}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C.slate400} strokeWidth="2" style={{ position: "absolute", left: 11, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={C.slate400} strokeWidth="2"
+              style={{ position: "absolute", left: 11, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
             </svg>
-            <input value={search} onChange={e => { setSearch(e.target.value); setPage(1); }}
+            <input
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setPage(1); }}
               placeholder="Buscar por nombre, empresa o email…"
               className="field-input"
               style={{ width: "100%", padding: "9px 12px 9px 34px", borderRadius: 8, border: `1.5px solid ${C.slate200}`, fontSize: 13, color: C.slate800, background: C.slate50 }}
             />
           </div>
 
-          {/* Export buttons */}
-          <div style={{ display: "flex", gap: 8 }}>
-            <Btn variant="secondary" size="sm" onClick={() => console.log("Descargar PDF", filtered)}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          {/* Export buttons ── ahora llaman a las funciones reales */}
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {/* Contador de registros en el filtro actual */}
+            {search.trim() && (
+              <span style={{ fontSize: 12, color: C.slate400, whiteSpace: "nowrap" }}>
+                {filtered.length} resultado{filtered.length !== 1 ? "s" : ""}
+              </span>
+            )}
+
+            <Btn
+              variant="secondary"
+              size="sm"
+              onClick={handleDownloadPDF}
+              disabled={filtered.length === 0}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               Descargar PDF
             </Btn>
-            <Btn variant="secondary" size="sm" onClick={() => console.log("Descargar Excel", filtered)}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+
+            <Btn
+              variant="secondary"
+              size="sm"
+              onClick={handleDownloadExcel}
+              disabled={filtered.length === 0}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
               Descargar Excel
             </Btn>
           </div>
@@ -535,48 +737,57 @@ function DashboardView() {
                   { key: "email",   label: "Email" },
                   { key: "score",   label: "Puntaje" },
                   { key: "level",   label: "Nivel de Clima" },
-                ].map(col => (
-                  <th key={col.key}
-                    onClick={() => ["date","name","score"].includes(col.key) && toggleSort(col.key)}
+                ].map((col) => (
+                  <th
+                    key={col.key}
+                    onClick={() => ["date", "name", "score"].includes(col.key) && toggleSort(col.key)}
                     style={{
                       padding: "11px 16px", textAlign: "left", fontWeight: 600,
                       color: C.slate600, fontSize: 12, textTransform: "uppercase",
                       letterSpacing: "0.06em", whiteSpace: "nowrap",
-                      cursor: ["date","name","score"].includes(col.key) ? "pointer" : "default",
+                      cursor: ["date", "name", "score"].includes(col.key) ? "pointer" : "default",
                       userSelect: "none",
                     }}
                   >
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
                       {col.label}
-                      {["date","name","score"].includes(col.key) && <SortIcon k={col.key} />}
+                      {["date", "name", "score"].includes(col.key) && <SortIcon k={col.key} />}
                     </span>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {data.length === 0 && !loading ? (
-                 <tr>
-                   <td colSpan={6} style={{ padding: "40px 16px", textAlign: "center", color: C.slate400, fontSize: 14 }}>
-                     Aún no hay evaluaciones registradas en el sistema.
-                   </td>
-                 </tr>
+              {data.length === 0 ? (
+                <tr>
+                  <td colSpan={6} style={{ padding: "40px 16px", textAlign: "center", color: C.slate400, fontSize: 14 }}>
+                    Aún no hay evaluaciones registradas en el sistema.
+                  </td>
+                </tr>
               ) : paginated.length === 0 ? (
                 <tr>
                   <td colSpan={6} style={{ padding: "40px 16px", textAlign: "center", color: C.slate400, fontSize: 14 }}>
                     No se encontraron resultados para "{search}"
                   </td>
                 </tr>
-              ) : paginated.map((row, i) => (
-                <tr key={row.id} className="data-row" style={{ background: i % 2 === 0 ? C.white : C.slate50, borderBottom: `1px solid ${C.slate100}`, transition: "background 0.1s" }}>
-                  <td style={{ padding: "13px 16px", color: C.slate500, fontFamily: MONO, fontSize: 12, whiteSpace: "nowrap" }}>{row.date !== 'N/A' ? formatDate(row.date) : 'N/A'}</td>
-                  <td style={{ padding: "13px 16px", color: C.slate900, fontWeight: 500, whiteSpace: "nowrap" }}>{row.name}</td>
-                  <td style={{ padding: "13px 16px", color: C.slate700, whiteSpace: "nowrap" }}>{row.company}</td>
-                  <td style={{ padding: "13px 16px", color: C.slate500, fontFamily: MONO, fontSize: 12 }}>{row.email}</td>
-                  <td style={{ padding: "13px 16px" }}><ScorePill score={row.score} /></td>
-                  <td style={{ padding: "13px 16px" }}><Badge label={row.level} score={row.score} /></td>
-                </tr>
-              ))}
+              ) : (
+                paginated.map((row, i) => (
+                  <tr
+                    key={row.id}
+                    className="data-row"
+                    style={{ background: i % 2 === 0 ? C.white : C.slate50, borderBottom: `1px solid ${C.slate100}`, transition: "background 0.1s" }}
+                  >
+                    <td style={{ padding: "13px 16px", color: C.slate500, fontFamily: MONO, fontSize: 12, whiteSpace: "nowrap" }}>
+                      {row.date !== "N/A" ? formatDate(row.date) : "N/A"}
+                    </td>
+                    <td style={{ padding: "13px 16px", color: C.slate900, fontWeight: 500, whiteSpace: "nowrap" }}>{row.name}</td>
+                    <td style={{ padding: "13px 16px", color: C.slate700, whiteSpace: "nowrap" }}>{row.company}</td>
+                    <td style={{ padding: "13px 16px", color: C.slate500, fontFamily: MONO, fontSize: 12 }}>{row.email}</td>
+                    <td style={{ padding: "13px 16px" }}><ScorePill score={row.score} /></td>
+                    <td style={{ padding: "13px 16px" }}><Badge label={row.level} score={row.score} /></td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -588,11 +799,11 @@ function DashboardView() {
               Mostrando {(page - 1) * PER_PAGE + 1}–{Math.min(page * PER_PAGE, filtered.length)} de {filtered.length}
             </span>
             <div style={{ display: "flex", gap: 4 }}>
-              <Btn variant="secondary" size="sm" disabled={page === 1}      onClick={() => setPage(p => p - 1)}>← Anterior</Btn>
+              <Btn variant="secondary" size="sm" disabled={page === 1}           onClick={() => setPage((p) => p - 1)}>← Anterior</Btn>
               {Array.from({ length: totalPages }, (_, i) => (
                 <Btn key={i} size="sm" variant={page === i + 1 ? "primary" : "secondary"} onClick={() => setPage(i + 1)}>{i + 1}</Btn>
               ))}
-              <Btn variant="secondary" size="sm" disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>Siguiente →</Btn>
+              <Btn variant="secondary" size="sm" disabled={page === totalPages}  onClick={() => setPage((p) => p + 1)}>Siguiente →</Btn>
             </div>
           </div>
         )}
@@ -601,7 +812,6 @@ function DashboardView() {
   );
 }
 
-// ─── SETTINGS VIEW ────────────────────────────────────────────────────────────
 // ─── SETTINGS VIEW ────────────────────────────────────────────────────────────
 function SettingsView() {
   const { user } = useAuth();
